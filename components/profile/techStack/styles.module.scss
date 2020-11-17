@@ -6,7 +6,14 @@
     font-family: 'Bebas Neue';
   }
 
-  p {
+  h2 {
     color: rgba(255, 255, 255, 0.7);
+    margin: 1rem 0rem;
+  }
+
+  .chip {
+    margin: 0.2rem;
+    background-color: #fff;
+    text-transform: uppercase;
   }
 }

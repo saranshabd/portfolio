@@ -14,10 +14,10 @@ export const IntroProfile: React.FC = () => {
           </Typist>
         </Grid>
         <Grid item>
-          <h2>
+          <p>
             Software engineer with experience in full-stack development,
             competitive programming, DevOps and startups (still learning)
-          </h2>
+          </p>
         </Grid>
       </Grid>
     </Container>

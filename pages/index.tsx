@@ -1,30 +1,25 @@
 import React from 'react'
 import ReactFullpage from '@fullpage/react-fullpage'
 
-// Components
 import { IntroProfile } from 'components/profile/intro'
-
-interface SectionProps {
-  children: React.ReactNode
-  className: string
-}
-
-const ReactFullPageSection: React.FC<SectionProps> = (props) => {
-  return <div className={`section ${props.className}`}>{props.children}</div>
-}
+import { TechStackProfile } from 'components/profile/techStack'
+import { ReactFullPageSection } from 'components/helpers/ReactFullPageSection'
 
 const Home: React.FC = () => {
   return (
     <ReactFullpage
-      render={() => {
-        return (
-          <ReactFullpage.Wrapper>
-            <ReactFullPageSection className='intro-section'>
-              <IntroProfile />
-            </ReactFullPageSection>
-          </ReactFullpage.Wrapper>
-        )
-      }}
+      render={() => (
+        <ReactFullpage.Wrapper>
+          <ReactFullPageSection
+            className='intro-section'
+            component={IntroProfile}
+          />
+          <ReactFullPageSection
+            className='tech-stack-section'
+            component={TechStackProfile}
+          />
+        </ReactFullpage.Wrapper>
+      )}
     />
   )
 }

@@ -25,17 +25,22 @@ body {
     font-size: 4rem;
     font-weight: 500;
   }
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+  }
+  p {
+    font-size: 1rem;
+  }
+
   @media (min-width: 551px) {
     h1 {
       font-size: 5rem;
     }
-  }
-
-  h2 {
-    font-size: 1rem;
-  }
-  @media (min-width: 551px) {
     h2 {
+      font-size: 2rem;
+    }
+    p {
       font-size: 1.75rem;
     }
   }
@@ -51,7 +56,16 @@ body {
   height: 100%;
 }
 
-.intro-section {
+.section {
   height: 100vh;
+}
+
+.intro-section {
+  @extend .section;
   background-color: #e74c3c;
+}
+
+.tech-stack-section {
+  @extend .section;
+  background-color: #1f618d;
 }
