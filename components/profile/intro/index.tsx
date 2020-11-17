@@ -1,12 +1,12 @@
 import React from 'react'
 import Typist from 'react-typist'
-import { Grid } from '@material-ui/core'
+import { Container, Grid } from '@material-ui/core'
 
 import styles from './styles.module.scss'
 
 export const IntroProfile: React.FC = () => {
   return (
-    <div className={styles['container']}>
+    <Container className={styles['container']}>
       <Grid container direction='column' justify='center' alignItems='center'>
         <Grid item>
           <Typist cursor={{ show: false }} avgTypingDelay={100}>
@@ -20,6 +20,6 @@ export const IntroProfile: React.FC = () => {
           </h2>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   )
 }
