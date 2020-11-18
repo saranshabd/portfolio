@@ -3,6 +3,8 @@ import ReactFullpage from '@fullpage/react-fullpage'
 
 import { IntroProfile } from 'components/profile/intro'
 import { TechStackProfile } from 'components/profile/techStack'
+import { ProjectsProfile } from 'components/profile/projects'
+
 import { ReactFullPageSection } from 'components/helpers/ReactFullPageSection'
 
 const Home: React.FC = () => {
@@ -17,6 +19,10 @@ const Home: React.FC = () => {
           <ReactFullPageSection
             className='tech-stack-section'
             component={TechStackProfile}
+          />
+          <ReactFullPageSection
+            className='projects-section'
+            component={ProjectsProfile}
           />
         </ReactFullpage.Wrapper>
       )}
