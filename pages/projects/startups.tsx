@@ -1,5 +1,7 @@
 import React from 'react'
+import Link from 'next/link'
 import { Container } from '@material-ui/core'
+import { ArrowBack } from '@material-ui/icons'
 
 import styles from './styles.module.scss'
 
@@ -9,6 +11,12 @@ const StartupProjects: React.FC<Props> = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['inner-container']}>
+        <Link href='/'>
+          <button className={styles['back-btn']}>
+            <ArrowBack fontSize='large' />
+          </button>
+        </Link>
+
         <h1>Startups</h1>
         <div className={styles['cards']}>
           <div className={styles['item']}>

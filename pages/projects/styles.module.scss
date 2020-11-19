@@ -4,12 +4,22 @@
   text-align: center;
 
   .inner-container {
-    padding-top: 5rem;
     padding-bottom: 5rem;
 
     h1 {
       color: #fff;
       font-family: 'Bebas Neue';
+    }
+
+    .back-btn {
+      display: flex;
+      border-radius: 1rem;
+      border: none;
+      outline: none;
+      margin-top: 2rem;
+      background-color: transparent;
+      color: #fff;
+      cursor: pointer;
     }
 
     .cards {
