@@ -1,11 +1,83 @@
 import React from 'react'
+import Link from 'next/link'
+import { Container } from '@material-ui/core'
+import { ArrowBack } from '@material-ui/icons'
 
 import styles from './styles.module.scss'
 
 interface Props {}
 
 const WebDevelopmentProjects: React.FC<Props> = () => {
-  return <div className={styles['container']}></div>
+  return (
+    <div className={styles['outer-container']}>
+      <Container className={styles['inner-container']}>
+        <Link href='/'>
+          <button className={styles['back-btn']}>
+            <ArrowBack fontSize='large' />
+          </button>
+        </Link>
+
+        <h1>Web Development</h1>
+        <div className={styles['cards']}>
+          <div className={styles['item']}>
+            <h2>Collaborative visualization tool for writers</h2>
+            <p>
+              This was a collaborative tool for writers to write their stories
+              and stuff. We ran a beta test for this project and got amazing
+              results.
+            </p>
+            <div className={styles['actions']}>
+              <a href='#'>Source Code</a>
+            </div>
+          </div>
+          <div className={styles['item']}>
+            <h2>Collaborative visualization tool for writers</h2>
+            <p>
+              This was a collaborative tool for writers to write their stories
+              and stuff. We ran a beta test for this project and got amazing
+              results.
+            </p>
+            <div className={styles['actions']}>
+              <a href='#'>Source Code</a>
+            </div>
+          </div>
+          <div className={styles['item']}>
+            <h2>Collaborative visualization tool for writers</h2>
+            <p>
+              This was a collaborative tool for writers to write their stories
+              and stuff. We ran a beta test for this project and got amazing
+              results.
+            </p>
+            <div className={styles['actions']}>
+              <a href='#'>Source Code</a>
+            </div>
+          </div>
+          <div className={styles['item']}>
+            <h2>Collaborative visualization tool for writers</h2>
+            <p>
+              This was a collaborative tool for writers to write their stories
+              and stuff. We ran a beta test for this project and got amazing
+              results.
+            </p>
+            <div className={styles['actions']}>
+              <a href='#'>Source Code</a>
+            </div>
+          </div>
+        </div>
+      </Container>
+
+      <style jsx global>
+        {`
+          body {
+            background: #17a589;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+          }
+        `}
+      </style>
+    </div>
+  )
 }
 
 export default WebDevelopmentProjects
