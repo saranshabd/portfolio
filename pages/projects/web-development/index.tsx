@@ -1,10 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
 import { Container } from '@material-ui/core'
-import { ArrowBack } from '@material-ui/icons'
 
 import styles from './styles.module.scss'
 
+import { BackButton } from 'components/profile/BackButton'
 import * as Card from 'components/helpers/card'
 
 interface Props {}
@@ -13,11 +12,7 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['inner-container']}>
-        <Link href='/'>
-          <button className={styles['back-btn']}>
-            <ArrowBack fontSize='large' />
-          </button>
-        </Link>
+        <BackButton href='/' />
 
         <h1>Web Development</h1>
 

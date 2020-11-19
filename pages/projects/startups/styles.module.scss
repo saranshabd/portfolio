@@ -11,15 +11,18 @@
       font-family: 'Bebas Neue';
     }
 
-    .back-btn {
-      display: flex;
-      border-radius: 1rem;
-      border: none;
-      outline: none;
-      margin-top: 2rem;
-      background-color: transparent;
-      color: #fff;
-      cursor: pointer;
+    .cards {
+      padding-top: 1rem;
+
+      @media (min-width: 661px) {
+        padding-left: 8rem;
+        padding-right: 8rem;
+      }
+
+      .actions {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+      }
     }
   }
 }
