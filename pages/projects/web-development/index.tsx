@@ -5,6 +5,8 @@ import { ArrowBack } from '@material-ui/icons'
 
 import styles from './styles.module.scss'
 
+import * as Card from 'components/helpers/card'
+
 interface Props {}
 
 const WebDevelopmentProjects: React.FC<Props> = () => {
@@ -18,51 +20,68 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
         </Link>
 
         <h1>Web Development</h1>
+
         <div className={styles['cards']}>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
+            </Card.Content>
             <div className={styles['actions']}>
-              <a href='#'>Source Code</a>
+              <Card.ActionButton href='#' color='#17a589'>
+                Source code
+              </Card.ActionButton>
             </div>
-          </div>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+          </Card.Item>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
+            </Card.Content>
             <div className={styles['actions']}>
-              <a href='#'>Source Code</a>
+              <Card.ActionButton href='#' color='#17a589'>
+                Source code
+              </Card.ActionButton>
             </div>
-          </div>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+          </Card.Item>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
+            </Card.Content>
             <div className={styles['actions']}>
-              <a href='#'>Source Code</a>
+              <Card.ActionButton href='#' color='#17a589'>
+                Source code
+              </Card.ActionButton>
             </div>
-          </div>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+          </Card.Item>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
+            </Card.Content>
             <div className={styles['actions']}>
-              <a href='#'>Source Code</a>
+              <Card.ActionButton href='#' color='#17a589'>
+                Source code
+              </Card.ActionButton>
             </div>
-          </div>
+          </Card.Item>
         </div>
       </Container>
 

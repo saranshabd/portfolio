@@ -5,6 +5,8 @@ import { ArrowBack } from '@material-ui/icons'
 
 import styles from './styles.module.scss'
 
+import * as Card from 'components/helpers/card'
+
 interface Props {}
 
 const StartupProjects: React.FC<Props> = () => {
@@ -18,39 +20,48 @@ const StartupProjects: React.FC<Props> = () => {
         </Link>
 
         <h1>Startups</h1>
+
         <div className={styles['cards']}>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
-          </div>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+            </Card.Content>
+          </Card.Item>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
-          </div>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+            </Card.Content>
+          </Card.Item>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
-          </div>
-          <div className={styles['item']}>
-            <h2>Collaborative visualization tool for writers</h2>
-            <p>
+            </Card.Content>
+          </Card.Item>
+          <Card.Item>
+            <Card.Title>
+              Collaborative visualization tool for writers
+            </Card.Title>
+            <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
               results.
-            </p>
-          </div>
+            </Card.Content>
+          </Card.Item>
         </div>
       </Container>
 
