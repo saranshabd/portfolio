@@ -3,6 +3,19 @@ import styles from './styles.module.scss'
 
 /**
  * ===========================================================
+ * Container
+ * ===========================================================
+ */
+interface ContainerProps {
+  children: React.ReactNode
+}
+
+export const Container: React.FC<ContainerProps> = ({ children }) => {
+  return <div className={styles['card-container']}>{children}</div>
+}
+
+/**
+ * ===========================================================
  * Item
  * ===========================================================
  */
@@ -49,6 +62,20 @@ export const Content: React.FC<ContentProps> = ({ children }) => {
       <p>{children}</p>
     </div>
   )
+}
+
+/**
+ * ===========================================================
+ * ActionContainer
+ * ===========================================================
+ */
+
+interface ActionContainerProps {
+  children: React.ReactNode
+}
+
+export const ActionContainer: React.FC<ActionContainerProps> = (props) => {
+  return <div className={styles['card-action-container']}>{props.children}</div>
 }
 
 /**

@@ -10,19 +10,5 @@
       color: #fff;
       font-family: 'Bebas Neue';
     }
-
-    .cards {
-      padding-top: 1rem;
-
-      @media (min-width: 661px) {
-        padding-left: 8rem;
-        padding-right: 8rem;
-      }
-
-      .actions {
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-      }
-    }
   }
 }

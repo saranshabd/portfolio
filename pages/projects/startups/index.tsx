@@ -16,7 +16,7 @@ const StartupProjects: React.FC<Props> = () => {
 
         <h1>Startups</h1>
 
-        <div className={styles['cards']}>
+        <Card.Container>
           <Card.Item>
             <Card.Title>
               Collaborative visualization tool for writers
@@ -57,7 +57,7 @@ const StartupProjects: React.FC<Props> = () => {
               results.
             </Card.Content>
           </Card.Item>
-        </div>
+        </Card.Container>
       </Container>
 
       <style jsx global>

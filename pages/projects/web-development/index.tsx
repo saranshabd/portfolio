@@ -3,8 +3,8 @@ import { Container } from '@material-ui/core'
 
 import styles from './styles.module.scss'
 
-import { BackButton } from 'components/profile/BackButton'
 import * as Card from 'components/helpers/card'
+import { BackButton } from 'components/profile/BackButton'
 
 interface Props {}
 
@@ -16,7 +16,7 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
 
         <h1>Web Development</h1>
 
-        <div className={styles['cards']}>
+        <Card.Container>
           <Card.Item>
             <Card.Title>
               Collaborative visualization tool for writers
@@ -26,11 +26,11 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
-            <div className={styles['actions']}>
+            <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
               </Card.ActionButton>
-            </div>
+            </Card.ActionContainer>
           </Card.Item>
           <Card.Item>
             <Card.Title>
@@ -41,11 +41,11 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
-            <div className={styles['actions']}>
+            <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
               </Card.ActionButton>
-            </div>
+            </Card.ActionContainer>
           </Card.Item>
           <Card.Item>
             <Card.Title>
@@ -56,11 +56,11 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
-            <div className={styles['actions']}>
+            <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
               </Card.ActionButton>
-            </div>
+            </Card.ActionContainer>
           </Card.Item>
           <Card.Item>
             <Card.Title>
@@ -71,13 +71,13 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
-            <div className={styles['actions']}>
+            <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
               </Card.ActionButton>
-            </div>
+            </Card.ActionContainer>
           </Card.Item>
-        </div>
+        </Card.Container>
       </Container>
 
       <style jsx global>
