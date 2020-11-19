@@ -3,8 +3,9 @@ import { Container } from '@material-ui/core'
 
 import styles from './styles.module.scss'
 
-import { BackButton } from 'components/profile/BackButton'
 import * as Card from 'components/helpers/card'
+import { PageTitle } from 'components/profile/PageTitle'
+import { BackButton } from 'components/profile/BackButton'
 
 interface Props {}
 
@@ -14,7 +15,7 @@ const StartupProjects: React.FC<Props> = () => {
       <Container className={styles['inner-container']}>
         <BackButton href='/' />
 
-        <h1>Startups</h1>
+        <PageTitle>Startups</PageTitle>
 
         <Card.Container>
           <Card.Item>
