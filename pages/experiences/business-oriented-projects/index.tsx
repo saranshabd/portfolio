@@ -13,7 +13,7 @@ const BusinessOrientedProjectExperiences: React.FC<Props> = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['inner-container']}>
-        <BackButton href='/' />
+        <BackButton href='/#experiences' />
 
         <PageTitle>Business-oriented projects</PageTitle>
 

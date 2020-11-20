@@ -13,7 +13,7 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['inner-container']}>
-        <BackButton href='/' />
+        <BackButton href='/#projects' />
 
         <PageTitle>Web Development</PageTitle>
 

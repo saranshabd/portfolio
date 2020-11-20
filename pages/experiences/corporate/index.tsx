@@ -13,7 +13,7 @@ const CorporateExperiences: React.FC<Props> = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['inner-container']}>
-        <BackButton href='/' />
+        <BackButton href='/#experiences' />
 
         <PageTitle>Corporate</PageTitle>
 
