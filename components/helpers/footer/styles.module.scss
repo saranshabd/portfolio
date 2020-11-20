@@ -1,0 +1,19 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 3rem;
+
+  .icon {
+    color: #fff;
+
+    margin: 0rem 0.5rem;
+    @media (min-width: 661px) {
+      margin: 0rem 0.75rem;
+    }
+  }
+}

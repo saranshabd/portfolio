@@ -3,6 +3,7 @@ import Typist from 'react-typist'
 import { Container, Grid } from '@material-ui/core'
 
 import styles from './styles.module.scss'
+import { Footer } from 'components/helpers/footer'
 
 export const IntroProfile: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ export const IntroProfile: React.FC = () => {
           </p>
         </Grid>
       </Grid>
+      <Footer />
     </Container>
   )
 }
