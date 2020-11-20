@@ -50,11 +50,24 @@
   }
 }
 
-.card-subtitle {
+.card-subtitles {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.1rem;
+  @media (min-width: 661px) {
+    padding: 0.5rem 0.6rem;
+  }
+}
+
+.card-left-subtitle {
   font-size: 0.9rem;
-  font-weight: 450;
-  text-align: right;
-  padding: 0.5rem 0rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.card-right-subtitle {
+  font-size: 0.9rem;
+  font-weight: 200;
   text-transform: uppercase;
   font-style: oblique;
 }

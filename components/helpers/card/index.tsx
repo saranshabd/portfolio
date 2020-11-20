@@ -52,12 +52,40 @@ export const Title: React.FC<TitleProps> = ({ children }) => {
  * ===========================================================
  */
 
-interface SubtitleProps {
+interface SubtitlesProps {
+  children: React.ReactNode
+}
+
+export const Subtitles: React.FC<SubtitlesProps> = ({ children }) => {
+  return <div className={styles['card-subtitles']}>{children}</div>
+}
+
+/**
+ * ===========================================================
+ * Left Subtitle
+ * ===========================================================
+ */
+
+interface LeftSubtitleProps {
   children: React.ReactText
 }
 
-export const Subtitle: React.FC<SubtitleProps> = ({ children }) => {
-  return <div className={styles['card-subtitle']}>{children}</div>
+export const LeftSubtitle: React.FC<LeftSubtitleProps> = ({ children }) => {
+  return <div className={styles['card-left-subtitle']}>{children}</div>
+}
+
+/**
+ * ===========================================================
+ * Right Subtitle
+ * ===========================================================
+ */
+
+interface RightSubtitleProps {
+  children: React.ReactText
+}
+
+export const RightSubtitle: React.FC<RightSubtitleProps> = ({ children }) => {
+  return <div className={styles['card-right-subtitle']}>{children}</div>
 }
 
 /**

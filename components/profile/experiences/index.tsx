@@ -12,7 +12,7 @@ export const ExperiencesProfile: React.FC<Props> = () => {
       <Link href='/experiences/business-oriented-projects'>
         <h2 className={styles['link']}>Business-oriented projects</h2>
       </Link>
-      <Link href='/experiences/coorporate'>
+      <Link href='/experiences/corporate'>
         <h2 className={styles['link']}>Corporate</h2>
       </Link>
     </div>

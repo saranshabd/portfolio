@@ -9,20 +9,19 @@ import { BackButton } from 'components/profile/BackButton'
 
 interface Props {}
 
-const BusinessOrientedProjectExperiences: React.FC<Props> = () => {
+const CorporateExperiences: React.FC<Props> = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['inner-container']}>
         <BackButton href='/' />
 
-        <PageTitle>Business-oriented projects</PageTitle>
+        <PageTitle>Corporate</PageTitle>
 
         <Card.Container>
           <Card.Item>
-            <Card.Title>
-              Collaborative visualization tool for writers
-            </Card.Title>
+            <Card.Title>DFP Consulting, England</Card.Title>
             <Card.Subtitles>
+              <Card.LeftSubtitle>SDE, Intern</Card.LeftSubtitle>
               <Card.RightSubtitle>July, 2020 - Sept, 2020</Card.RightSubtitle>
             </Card.Subtitles>
             <Card.Content>
@@ -36,6 +35,7 @@ const BusinessOrientedProjectExperiences: React.FC<Props> = () => {
               Collaborative visualization tool for writers
             </Card.Title>
             <Card.Subtitles>
+              <Card.LeftSubtitle>SDE, Intern</Card.LeftSubtitle>
               <Card.RightSubtitle>July, 2020 - Sept, 2020</Card.RightSubtitle>
             </Card.Subtitles>
             <Card.Content>
@@ -49,6 +49,7 @@ const BusinessOrientedProjectExperiences: React.FC<Props> = () => {
               Collaborative visualization tool for writers
             </Card.Title>
             <Card.Subtitles>
+              <Card.LeftSubtitle>SDE, Intern</Card.LeftSubtitle>
               <Card.RightSubtitle>July, 2020 - Sept, 2020</Card.RightSubtitle>
             </Card.Subtitles>
             <Card.Content>
@@ -62,6 +63,7 @@ const BusinessOrientedProjectExperiences: React.FC<Props> = () => {
               Collaborative visualization tool for writers
             </Card.Title>
             <Card.Subtitles>
+              <Card.LeftSubtitle>SDE, Intern</Card.LeftSubtitle>
               <Card.RightSubtitle>July, 2020 - Sept, 2020</Card.RightSubtitle>
             </Card.Subtitles>
             <Card.Content>
@@ -87,4 +89,4 @@ const BusinessOrientedProjectExperiences: React.FC<Props> = () => {
   )
 }
 
-export default BusinessOrientedProjectExperiences
+export default CorporateExperiences
