@@ -1,5 +1,7 @@
 .page-title {
   color: #fff;
-  font-family: 'Bebas Neue';
-  font-size: 3rem;
+  font-size: 2rem;
+  @media (min-width: 661px) {
+    font-size: 2.5rem;
+  }
 }

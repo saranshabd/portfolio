@@ -7,7 +7,13 @@ import styles from './styles.module.scss'
 export const IntroProfile: React.FC = () => {
   return (
     <Container className={styles['container']}>
-      <Grid container direction='column' justify='center' alignItems='center'>
+      <Grid
+        container
+        direction='column'
+        justify='center'
+        alignItems='center'
+        spacing={1}
+      >
         <Grid item>
           <Typist cursor={{ show: false }} avgTypingDelay={100}>
             <h1>Shabd Saran</h1>
