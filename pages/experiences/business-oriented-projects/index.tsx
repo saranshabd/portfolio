@@ -15,13 +15,14 @@ const StartupProjects: React.FC<Props> = () => {
       <Container className={styles['inner-container']}>
         <BackButton href='/' />
 
-        <PageTitle>Startups</PageTitle>
+        <PageTitle>Business-oriented projects</PageTitle>
 
         <Card.Container>
           <Card.Item>
             <Card.Title>
               Collaborative visualization tool for writers
             </Card.Title>
+            <Card.Subtitle>July, 2020 - Sept, 2020</Card.Subtitle>
             <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
@@ -32,6 +33,7 @@ const StartupProjects: React.FC<Props> = () => {
             <Card.Title>
               Collaborative visualization tool for writers
             </Card.Title>
+            <Card.Subtitle>July, 2020 - Sept, 2020</Card.Subtitle>
             <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
@@ -42,6 +44,7 @@ const StartupProjects: React.FC<Props> = () => {
             <Card.Title>
               Collaborative visualization tool for writers
             </Card.Title>
+            <Card.Subtitle>July, 2020 - Sept, 2020</Card.Subtitle>
             <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
@@ -52,6 +55,7 @@ const StartupProjects: React.FC<Props> = () => {
             <Card.Title>
               Collaborative visualization tool for writers
             </Card.Title>
+            <Card.Subtitle>July, 2020 - Sept, 2020</Card.Subtitle>
             <Card.Content>
               This was a collaborative tool for writers to write their stories
               and stuff. We ran a beta test for this project and got amazing
@@ -64,7 +68,7 @@ const StartupProjects: React.FC<Props> = () => {
       <style jsx global>
         {`
           body {
-            background: #17a589;
+            background: #76448a;
             margin: 0;
             padding: 0;
             height: 100%;

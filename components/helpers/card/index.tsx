@@ -48,6 +48,20 @@ export const Title: React.FC<TitleProps> = ({ children }) => {
 
 /**
  * ===========================================================
+ * Subtitle
+ * ===========================================================
+ */
+
+interface SubtitleProps {
+  children: React.ReactText
+}
+
+export const Subtitle: React.FC<SubtitleProps> = ({ children }) => {
+  return <div className={styles['card-subtitle']}>{children}</div>
+}
+
+/**
+ * ===========================================================
  * Content
  * ===========================================================
  */
