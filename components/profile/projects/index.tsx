@@ -9,9 +9,6 @@ export const ProjectsProfile: React.FC<Props> = () => {
   return (
     <div className={styles['container']}>
       <h1>Projects</h1>
-      <Link href='/projects/startups'>
-        <h2 className={styles['link']}>Startups</h2>
-      </Link>
       <Link href='/projects/web-development'>
         <h2 className={styles['link']}>Web Development</h2>
       </Link>
