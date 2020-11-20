@@ -143,3 +143,22 @@ export const ActionButton: React.FC<ActionButtonProps> = (props) => {
     </a>
   )
 }
+
+/**
+ * ===========================================================
+ * Icons
+ * ===========================================================
+ */
+
+interface IconsProps {
+  hrefs: string[]
+}
+
+export const Icons: React.FC<IconsProps> = ({ hrefs }) => {
+  const renderImages = () => {
+    return hrefs.map((href) => (
+      <img src={href} alt='' className={styles['icon']} />
+    ))
+  }
+  return <div className={styles['card-icons']}>{renderImages()}</div>
+}

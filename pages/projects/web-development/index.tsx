@@ -27,6 +27,16 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
+            <Card.Icons
+              hrefs={[
+                'https://cdn.svgporn.com/logos/java.svg',
+                'https://cdn.svgporn.com/logos/javascript.svg',
+                'https://cdn.svgporn.com/logos/aws.svg',
+                'https://cdn.svgporn.com/logos/postgresql.svg',
+                'https://cdn.svgporn.com/logos/mongodb.svg',
+                'https://cdn.svgporn.com/logos/python.svg',
+              ]}
+            />
             <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
@@ -42,6 +52,16 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
+            <Card.Icons
+              hrefs={[
+                'https://cdn.svgporn.com/logos/java.svg',
+                'https://cdn.svgporn.com/logos/javascript.svg',
+                'https://cdn.svgporn.com/logos/aws.svg',
+                'https://cdn.svgporn.com/logos/postgresql.svg',
+                'https://cdn.svgporn.com/logos/mongodb.svg',
+                'https://cdn.svgporn.com/logos/python.svg',
+              ]}
+            />
             <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
@@ -57,6 +77,16 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
+            <Card.Icons
+              hrefs={[
+                'https://cdn.svgporn.com/logos/java.svg',
+                'https://cdn.svgporn.com/logos/javascript.svg',
+                'https://cdn.svgporn.com/logos/aws.svg',
+                'https://cdn.svgporn.com/logos/postgresql.svg',
+                'https://cdn.svgporn.com/logos/mongodb.svg',
+                'https://cdn.svgporn.com/logos/python.svg',
+              ]}
+            />
             <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
@@ -72,6 +102,16 @@ const WebDevelopmentProjects: React.FC<Props> = () => {
               and stuff. We ran a beta test for this project and got amazing
               results.
             </Card.Content>
+            <Card.Icons
+              hrefs={[
+                'https://cdn.svgporn.com/logos/java.svg',
+                'https://cdn.svgporn.com/logos/javascript.svg',
+                'https://cdn.svgporn.com/logos/aws.svg',
+                'https://cdn.svgporn.com/logos/postgresql.svg',
+                'https://cdn.svgporn.com/logos/mongodb.svg',
+                'https://cdn.svgporn.com/logos/python.svg',
+              ]}
+            />
             <Card.ActionContainer>
               <Card.ActionButton href='#' color='#17a589'>
                 Source code
