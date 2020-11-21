@@ -37,27 +37,23 @@ const Home: React.FC = () => {
             component={Component}
           />
         ))}
+        <style jsx global>{`
+          #fp-nav ul li a span,
+          .fp-slidesNav ul li a span {
+            background: #fff;
+          }
+        `}</style>
       </ReactFullpage.Wrapper>
     )
   }
 
   return (
-    <>
-      <ReactFullpage
-        scrollingSpeed={1000}
-        anchors={anchors.map((anchor) => anchor.name)}
-        navigation={true}
-        render={renderSections}
-      />
-      <style jsx global>{`
-         {
-          #fp-nav ul li a span,
-          .fp-slidesNav ul li a span {
-            background: #fff;
-          }
-        }
-      `}</style>
-    </>
+    <ReactFullpage
+      scrollingSpeed={1000}
+      anchors={anchors.map((anchor) => anchor.name)}
+      navigation={true}
+      render={renderSections}
+    />
   )
 }
 
