@@ -2,8 +2,16 @@
   background-color: #f1c40f;
   height: 100%;
   color: #fff;
-  text-align: center;
 
   .inner-container {
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+    color: #000;
+    text-align: center;
+
+    .card-link {
+      color: #000;
+      text-decoration: none;
+    }
   }
 }
