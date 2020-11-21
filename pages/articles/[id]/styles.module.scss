@@ -1,0 +1,125 @@
+.outer-container {
+  background-color: #f1c40f;
+  height: 100%;
+  color: #fff;
+
+  .inner-container {
+    padding-bottom: 5rem;
+
+    .title {
+      font-size: 3rem;
+      text-align: center;
+      font-weight: 800;
+
+      padding: 2rem 1rem;
+      @media (min-width: 661px) {
+        padding: 2rem 10rem;
+      }
+    }
+
+    .metadata {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 1rem 1rem 2rem 1rem;
+      @media (min-width: 661px) {
+        padding: 1rem 5rem 2rem 5rem;
+      }
+
+      @media (min-width: 661px) {
+        margin: 0rem 5rem;
+      }
+
+      .series {
+        font-weight: 900;
+
+        font-size: 1rem;
+        @media (min-width: 661px) {
+          font-size: 1.3rem;
+        }
+      }
+
+      .date {
+        font-style: oblique;
+        font-weight: 300;
+
+        font-size: 1rem;
+        @media (min-width: 661px) {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .content {
+      color: #000;
+      background-color: rgba(255, 255, 255, 0.8);
+
+      border-radius: 2rem;
+      @media (min-width: 661px) {
+        border-radius: 4rem;
+      }
+
+      @media (min-width: 661px) {
+        margin: 0rem 5rem;
+      }
+
+      padding: 2rem 1rem;
+      @media (min-width: 661px) {
+        padding: 4rem 5rem;
+      }
+
+      h1 {
+        margin: 1.5rem 0rem;
+        font-size: 2.5rem;
+        font-weight: 300;
+      }
+
+      h2 {
+        margin: 1.5rem 0rem;
+        font-size: 2rem;
+        font-weight: 300;
+      }
+
+      h3 {
+        margin: 1.5rem 0rem;
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+
+      p {
+        margin: 1.5rem 0rem;
+        font-size: 1.2rem;
+        text-align: justify;
+      }
+
+      code {
+        color: #ec7063;
+      }
+
+      pre {
+        background-color: #b7950b;
+        border-radius: 1rem;
+        overflow-x: auto;
+        margin: 1.5rem 0rem;
+
+        padding: 1rem;
+        @media (min-width: 661px) {
+          padding: 1.5rem;
+        }
+
+        code {
+          color: #fff;
+          font-size: 1rem;
+        }
+      }
+
+      ul {
+        padding: 0.5rem 0rem 0.5rem 2rem;
+
+        li {
+          padding: 0.5rem 0rem;
+        }
+      }
+    }
+  }
+}
