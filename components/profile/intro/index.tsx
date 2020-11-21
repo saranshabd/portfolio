@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import Typist from 'react-typist'
 import { Container, Grid } from '@material-ui/core'
 
@@ -10,9 +9,7 @@ export const IntroProfile: React.FC = () => {
   return (
     <Container className={styles['container']}>
       <div className={styles['articles-btn']}>
-        <Link href='/articles'>
-          <a>Articles</a>
-        </Link>
+        <a href='/articles'>Articles</a>
       </div>
       <Grid
         container
