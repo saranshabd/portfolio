@@ -1,18 +1,25 @@
-.container {
-  text-align: center;
+.outer-container {
+  margin: 0rem 2.5rem;
 
-  h1 {
-    color: #fff;
-  }
+  .container {
+    text-align: center;
 
-  h2 {
-    color: rgba(255, 255, 255, 0.7);
-    margin: 1rem 0rem;
-  }
+    h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      @media (min-width: 661px) {
+        font-size: 4rem;
+      }
+    }
+    h2 {
+      color: rgba(255, 255, 255, 0.7);
+      margin: 1rem 0rem;
+    }
 
-  .chip {
-    margin: 0.2rem;
-    background-color: #fff;
-    text-transform: uppercase;
+    .chip {
+      margin: 0.2rem;
+      background-color: #fff;
+      text-transform: uppercase;
+    }
   }
 }

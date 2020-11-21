@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import { Grid } from '@material-ui/core'
 
 import styles from './styles.module.scss'
 
@@ -9,12 +9,28 @@ export const ExperiencesProfile: React.FC<Props> = () => {
   return (
     <div className={styles['container']}>
       <h1>Experiences</h1>
-      <Link href='/experiences/business-oriented-projects'>
-        <h2 className={styles['link']}>Business-oriented projects</h2>
-      </Link>
-      <Link href='/experiences/corporate'>
-        <h2 className={styles['link']}>Corporate</h2>
-      </Link>
+      <Grid
+        container
+        direction='column'
+        justify='center'
+        alignItems='center'
+        spacing={1}
+        className={styles['menu']}
+      >
+        <Grid item>
+          <a
+            href='/experiences/business-oriented-projects'
+            className={styles['link']}
+          >
+            Business-oriented projects
+          </a>
+        </Grid>
+        <Grid item>
+          <a href='/experiences/corporate' className={styles['link']}>
+            Corporate
+          </a>
+        </Grid>
+      </Grid>
     </div>
   )
 }
