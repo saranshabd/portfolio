@@ -40,7 +40,7 @@ const Articles: React.FC = () => {
       <style jsx global>
         {`
           body {
-            background: #f1c40f;
+            background: #76448a;
             margin: 0;
             padding: 0;
             height: 100%;
