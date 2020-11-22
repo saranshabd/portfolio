@@ -18,6 +18,11 @@ export const ExperiencesProfile: React.FC<Props> = () => {
         className={styles['menu']}
       >
         <Grid item>
+          <a href='/experiences/corporate' className={styles['link']}>
+            Corporate
+          </a>
+        </Grid>
+        <Grid item>
           <a
             href='/experiences/business-oriented-projects'
             className={styles['link']}
@@ -26,8 +31,8 @@ export const ExperiencesProfile: React.FC<Props> = () => {
           </a>
         </Grid>
         <Grid item>
-          <a href='/experiences/corporate' className={styles['link']}>
-            Corporate
+          <a href='/experiences/articles' className={styles['link']}>
+            Articles
           </a>
         </Grid>
       </Grid>

@@ -2,8 +2,8 @@ import React from 'react'
 import { Container } from '@material-ui/core'
 
 import * as Card from 'components/helpers/card'
+import { BackButton } from 'components/profile/BackButton'
 import { PageTitle } from 'components/profile/PageTitle'
-import { NavbarButton } from 'components/helpers/navbar'
 
 import styles from './styles.module.scss'
 
@@ -11,11 +11,11 @@ const Articles: React.FC = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['inner-container']}>
-        <NavbarButton type='profile' />
+        <BackButton href='/#experiences' />
         <PageTitle>Articles</PageTitle>
         <Card.Container>
           <a
-            href='/articles/how-docker-can-help-you-sleep-well-at-night-507f1f77bcf86cd799439011'
+            href='/experiences/articles/how-docker-can-help-you-sleep-well-at-night-507f1f77bcf86cd799439011'
             className={styles['card-link']}
           >
             <Card.Item>

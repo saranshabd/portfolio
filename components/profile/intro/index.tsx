@@ -4,13 +4,11 @@ import { Container, Grid } from '@material-ui/core'
 
 import styles from './styles.module.scss'
 import { Footer } from 'components/helpers/footer'
-import { NavbarButton } from 'components/helpers/navbar'
 
 export const IntroProfile: React.FC = () => {
   return (
     <div className={styles['outer-container']}>
       <Container className={styles['container']}>
-        <NavbarButton type='articles' />
         <Grid
           container
           direction='column'
