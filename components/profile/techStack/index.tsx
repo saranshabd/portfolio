@@ -4,7 +4,12 @@ import { Container } from '@material-ui/core'
 
 import styles from './styles.module.scss'
 
+import _data from 'static/tech-stack.json'
+import { TechStackDataType } from 'utils/interfaces'
+
 interface Props {}
+
+const data = _data as TechStackDataType
 
 export const TechStackProfile: React.FC<Props> = () => {
   return (
@@ -13,28 +18,19 @@ export const TechStackProfile: React.FC<Props> = () => {
         <h1>Tech stack</h1>
 
         <h2>Programming languages</h2>
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
+        {data.programmingLanguages.map((item) => (
+          <Chip className={styles['chip']} label={item} />
+        ))}
 
         <h2>Frameworks</h2>
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
+        {data.frameworks.map((item) => (
+          <Chip className={styles['chip']} label={item} />
+        ))}
 
         <h2>Technologies</h2>
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
-        <Chip className={styles['chip']} label='Golang' />
+        {data.technologies.map((item) => (
+          <Chip className={styles['chip']} label={item} />
+        ))}
       </Container>
     </div>
   )

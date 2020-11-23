@@ -5,6 +5,11 @@ import { Container, Grid } from '@material-ui/core'
 import styles from './styles.module.scss'
 import { Footer } from 'components/helpers/footer'
 
+import _data from 'static/intro.json'
+import { IntroDataType } from 'utils/interfaces'
+
+const data = _data as IntroDataType
+
 export const IntroProfile: React.FC = () => {
   return (
     <div className={styles['outer-container']}>
@@ -18,14 +23,11 @@ export const IntroProfile: React.FC = () => {
         >
           <Grid item>
             <Typist cursor={{ show: false }} avgTypingDelay={100}>
-              <h1>Shabd Saran</h1>
+              <h1>{data.name}</h1>
             </Typist>
           </Grid>
           <Grid item>
-            <p>
-              Software engineer with experience in full-stack development,
-              competitive programming, DevOps and startups (still learning)
-            </p>
+            <p>{data.message}</p>
           </Grid>
         </Grid>
         <Footer />

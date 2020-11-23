@@ -19,12 +19,12 @@ const Home: React.FC = () => {
       Component: TechStackProfile,
     },
     {
-      name: 'projects',
-      Component: ProjectsProfile,
-    },
-    {
       name: 'experiences',
       Component: ExperiencesProfile,
+    },
+    {
+      name: 'projects',
+      Component: ProjectsProfile,
     },
   ]
 

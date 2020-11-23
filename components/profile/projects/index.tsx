@@ -23,8 +23,13 @@ export const ProjectsProfile: React.FC<Props> = () => {
           </a>
         </Grid>
         <Grid item>
-          <a href='/projects/web-development' className={styles['link']}>
+          <a href='/projects/bots-and-data-science' className={styles['link']}>
             Bots & Data Science
+          </a>
+        </Grid>
+        <Grid item>
+          <a href='/projects/utility-tools' className={styles['link']}>
+            Utility Tools
           </a>
         </Grid>
       </Grid>

@@ -1,0 +1,26 @@
+[
+  {
+    "title": "DFP Consultancy",
+    "description": "I'm currently working here so I can't really talk about my projects...",
+    "position": "SDE, Intern",
+    "date": "Oct 2020 - Current"
+  },
+  {
+    "title": "Innovaccer",
+    "description": "Worked on a parallel processing micro service to load and parse data coming from different data sources, built an office timing management portal that integrates with user’s Google Calendar and wrote automated multi-stage deployment scripts using Terraform.",
+    "position": "SDE, Intern",
+    "date": "June 2020 - July 2020"
+  },
+  {
+    "title": "Turkbox",
+    "description": "Built a highly scalable analytics dashboard REST API, created endpoints to server data points from cloud storage and developed a data streaming module.",
+    "position": "SDE, Intern",
+    "date": "May 2020 - Sept 2020"
+  },
+  {
+    "title": "DataResolve Technologies",
+    "description": "Worked on the authentication system & developed a scalable log archiving system. This was my first internship so please don't judge.",
+    "position": "SDE, Intern",
+    "date": "June 2019 - July 2019"
+  }
+]

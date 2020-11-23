@@ -29,8 +29,12 @@
     transform: scale(1.02);
   }
 
-  &:not(:first-child):not(:last-child) {
-    margin: 1rem 0rem;
+  margin: 1rem 0rem;
+  &:first-child {
+    margin-top: 0rem;
+  }
+  &:last-child {
+    margin-bottom: 0rem;
   }
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
