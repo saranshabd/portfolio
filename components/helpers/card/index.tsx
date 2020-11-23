@@ -22,10 +22,15 @@ export const Container: React.FC<ContainerProps> = ({ children }) => {
 
 interface ItemProps {
   children: React.ReactNode
+  style?: React.CSSProperties
 }
 
-export const Item: React.FC<ItemProps> = ({ children }) => {
-  return <div className={styles['card-item']}>{children}</div>
+export const Item: React.FC<ItemProps> = ({ children, style }) => {
+  return (
+    <div className={styles['card-item']} style={style}>
+      {children}
+    </div>
+  )
 }
 
 /**

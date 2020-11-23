@@ -22,3 +22,11 @@ export interface ExperienceDataType {
   date: string
   position?: string
 }
+
+export interface ArticleDataType {
+  title: string
+  series: string
+  date: string
+  description: string
+  code: string
+}

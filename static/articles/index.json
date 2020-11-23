@@ -1,0 +1,17 @@
+[
+  {
+    "title": "How Docker can help you sleep well at night?",
+    "series": "DevOps with Docker",
+    "date": "Oct 27, 2020",
+    "description": "I was very surprised to realize that a lot of junior developers, college students and...",
+    "code": "how-docker-can-help-you-sleep-well-at-night-240587833815",
+    "markdown": ""
+  },
+  {
+    "title": "How and why to use Docker as a package manager?",
+    "series": "DevOps with Docker",
+    "date": "Nov 10, 2020",
+    "description": "Introduction Hello everyone, hope you're coding well. Prerequisites In the last...",
+    "code": "how-and-why-to-use-docker-as-a-package-manager-722570029107"
+  }
+]
