@@ -2,25 +2,15 @@
   {
     "title": "The useful tools",
     "description": "A utility CLI for developers to solve their day-to-day problems like initializing a project which requires following some monotonous steps, or using git in an efficient manner.",
-    "techStackIconUrls": [
-      "https://cdn.svgporn.com/logos/java.svg",
-      "https://cdn.svgporn.com/logos/javascript.svg",
-      "https://cdn.svgporn.com/logos/aws.svg",
-      "https://cdn.svgporn.com/logos/postgresql.svg",
-      "https://cdn.svgporn.com/logos/mongodb.svg",
-      "https://cdn.svgporn.com/logos/python.svg"
-    ]
+    "techStackIconUrls": ["https://cdn.svgporn.com/logos/python.svg"]
   },
   {
     "title": "Get Best",
     "description": "A website on which users can bookmark their favorite products on Amazon, Flipkart and Snapdeal and they will be automatically notified when that product's price decreases so that they can buy it at the best possible price. On the backend, the product's webpage is regularly scrapped to track its latest price.",
     "techStackIconUrls": [
-      "https://cdn.svgporn.com/logos/java.svg",
-      "https://cdn.svgporn.com/logos/javascript.svg",
+      "https://cdn.svgporn.com/logos/python.svg",
       "https://cdn.svgporn.com/logos/aws.svg",
-      "https://cdn.svgporn.com/logos/postgresql.svg",
-      "https://cdn.svgporn.com/logos/mongodb.svg",
-      "https://cdn.svgporn.com/logos/python.svg"
+      "https://cdn.svgporn.com/logos/postgresql.svg"
     ]
   }
 ]

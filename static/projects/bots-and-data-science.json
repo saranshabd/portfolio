@@ -3,24 +3,16 @@
     "title": "UEFA Champions League predictor",
     "description": "A side machine learning project to predict the outcome of 2019-20 UEFA Champion's League using classification algorithms. I predicted the outcome of top 8 teams in the competition based on their last 5 years group state performances.",
     "techStackIconUrls": [
-      "https://cdn.svgporn.com/logos/java.svg",
-      "https://cdn.svgporn.com/logos/javascript.svg",
-      "https://cdn.svgporn.com/logos/aws.svg",
-      "https://cdn.svgporn.com/logos/postgresql.svg",
-      "https://cdn.svgporn.com/logos/mongodb.svg",
-      "https://cdn.svgporn.com/logos/python.svg"
+      "https://cdn.svgporn.com/logos/python.svg",
+      "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg"
     ]
   },
   {
     "title": "Microsoft Teams Attendance Bot",
     "description": "A smart bot which will attend classes on Microsoft Teams for you. It's a really simple application which uses web automation to attend a call on Microsoft Teams and these calls can be scheduled using a CSV file.",
     "techStackIconUrls": [
-      "https://cdn.svgporn.com/logos/java.svg",
-      "https://cdn.svgporn.com/logos/javascript.svg",
-      "https://cdn.svgporn.com/logos/aws.svg",
-      "https://cdn.svgporn.com/logos/postgresql.svg",
-      "https://cdn.svgporn.com/logos/mongodb.svg",
-      "https://cdn.svgporn.com/logos/python.svg"
+      "https://cdn.svgporn.com/logos/python.svg",
+      "https://cdn.svgporn.com/logos/selenium.svg"
     ]
   }
 ]
