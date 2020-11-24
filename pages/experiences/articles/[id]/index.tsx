@@ -18,8 +18,8 @@ const Article: React.FC = () => {
     const { id } = router.query
     if (!id) return
     ;(async function () {
-      const res = await axios.get(`/api/markdown?id=${id}`)
-      setMarkdown(res.data['message'])
+      const res = await axios.get(`/${id}.md`)
+      setMarkdown(res.data)
     })()
   }, [router.query])
 
