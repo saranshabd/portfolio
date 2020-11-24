@@ -27,7 +27,7 @@ const setResponse = (
 ) => {
   res.setHeader('Content-Type', 'application/json')
   res.statusCode = statusCode
-  res.end(JSON.stringify({ error: message }))
+  res.end(JSON.stringify({ message }))
 }
 
 export default getMarkdown
