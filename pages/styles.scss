@@ -15,3 +15,13 @@ body {
 #__next {
   height: 100%;
 }
+
+hr {
+  display: inline-block;
+  height: 0.5rem;
+  width: 20rem;
+  border: 0;
+  border-top: 0.10rem solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
