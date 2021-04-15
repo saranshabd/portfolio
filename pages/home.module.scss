@@ -1,43 +1,60 @@
 .container {
     margin-top: 2rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 
-    .social-media-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-    
-        .container {
+    .inner-container {
+        text-align: center;
+        width: 50rem;
+        padding: 0rem 1rem;
+
+        .divider {
+            text-align: center;
+        }
+
+        .callout {
+            text-align: center;
+            background-color: #E8F8F5;
+            padding: 1.5rem 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .social-media-links {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-    
-        .icon {
-            height: 1.5rem;
-        }
-    
-        .twitter-container {
-            color: #1DA1F2;
+            gap: 2rem;
         
-            .twitter-icon {
+            .container {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                text-decoration: none;
+            }
+        
+            .icon {
+                height: 1.5rem;
+            }
+        
+            .twitter-container {
                 color: #1DA1F2;
+            
+                .twitter-icon {
+                    color: #1DA1F2;
+                }
             }
-        }
-        
-        .linkedin-container {
-            color: #0e76a8;
-        
-            .linkedin-icon {
+            
+            .linkedin-container {
                 color: #0e76a8;
+            
+                .linkedin-icon {
+                    color: #0e76a8;
+                }
             }
         }
-    }
 
-    .content {
-        .date {
-            color: #888;
+        .title-container {
+            text-align: center;
+            margin-bottom: 0.5rem;
         }
     }
 }

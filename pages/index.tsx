@@ -5,49 +5,59 @@ import styles from './home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
+import HomeContent from './components/homeContent/homeContent'
+
 const Home: React.FC = () => {
   return (
     <div className={styles['container']}>
-      <h2>Shabd Saran</h2>
-      <p>What I write makes absolutely no sense, so read it at your own risk</p>
-      <div className={styles['social-media-links']}>
-        <a
-          href='https://twitter.com/saranshabd'
-          target='_blank'
-          className={`${styles['container']} ${styles['twitter-container']}`}
-        >
-          <FontAwesomeIcon
-            icon={faTwitter}
-            size='1x'
-            className={`${styles['icon']} ${styles['twitter-icon']}`}
-          />
-          <p>Twitter</p>
-        </a>
-        <a
-          href='https://www.linkedin.com/in/saranshabd'
-          target='_blank'
-          className={`${styles['container']} ${styles['linkedin-container']}`}
-        >
-          <FontAwesomeIcon
-            icon={faLinkedin}
-            size='1x'
-            className={`${styles['icon']} ${styles['linkedin-icon']}`}
-          />
-          <p>LinkedIn</p>
-        </a>
-      </div>
-      <br />
-      <hr />
-      <br />
-      <h4>Writings</h4>
-      <br />
-      <div className={styles['content']}>
-        <h2>With great power comes great responsibility</h2>
-        <p className={styles['date']}>14th April 2021</p>
+      <div className={styles['inner-container']}>
+        <h2>Shabd Saran</h2>
         <p>
-          Having the knowledge of something and actually applying that knowledge
-          to do something valuable are two very different things.
+          What I write makes absolutely no sense, so read it at your own risk
         </p>
+        <div className={styles['social-media-links']}>
+          <a
+            href='https://twitter.com/saranshabd'
+            target='_blank'
+            className={`${styles['container']} ${styles['twitter-container']}`}
+          >
+            <FontAwesomeIcon
+              icon={faTwitter}
+              size='1x'
+              className={`${styles['icon']} ${styles['twitter-icon']}`}
+            />
+            <p>Twitter</p>
+          </a>
+          <a
+            href='https://www.linkedin.com/in/saranshabd'
+            target='_blank'
+            className={`${styles['container']} ${styles['linkedin-container']}`}
+          >
+            <FontAwesomeIcon
+              icon={faLinkedin}
+              size='1x'
+              className={`${styles['icon']} ${styles['linkedin-icon']}`}
+            />
+            <p>LinkedIn</p>
+          </a>
+        </div>
+        <br />
+        <div className={styles['callout']}>
+          If you are looking for my technical profile then head to my LinkedIn
+          profile. I'd recommend visiting my Twitter handle as well. Thanks!
+        </div>
+        <br />
+        <div className={styles['divider']}>
+          <hr />
+        </div>
+        <h4 className={styles['title-container']}>Writings</h4>
+        <div>
+          <HomeContent
+            heading='With great power comes great responsibility'
+            summary='Having the knowledge of something and actually applying that knowledge
+        to do something valuable are two very different things.'
+          />
+        </div>
       </div>
     </div>
   )
