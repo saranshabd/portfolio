@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Container from '../components/container/container'
-import BackHome from '../components/backHome/backHome'
-import Callout from '../components/callout/callout'
-import TitleHeading from '../components/titleHeading/titleHeading'
-import ContentHeading from '../components/contentHeading/contentHeading'
-import ContentContent from '../components/contentContent/contentContent'
+import Container from '../../components/container/container'
+import BackHome from '../../components/backHome/backHome'
+import Callout from '../../components/callout/callout'
+import TitleHeading from '../../components/titleHeading/titleHeading'
+import ContentHeading from '../../components/contentHeading/contentHeading'
+import ContentContent from '../../components/contentContent/contentContent'
 
 const WritingPage: React.FC = () => {
   return (

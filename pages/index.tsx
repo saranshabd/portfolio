@@ -5,9 +5,9 @@ import styles from './home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
-import Container from './components/container/container'
-import HomeContent from './components/homeContent/homeContent'
-import Callout from './components/callout/callout'
+import Container from '../components/container/container'
+import HomeContent from '../components/homeContent/homeContent'
+import Callout from '../components/callout/callout'
 
 const Home: React.FC = () => {
   return (
