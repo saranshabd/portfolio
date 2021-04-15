@@ -44,8 +44,8 @@ const Home: React.FC = () => {
         </div>
         <br />
         <Callout>
-          If you are looking for my technical profile then head to my LinkedIn
-          profile. I'd recommend visiting my Twitter handle as well. Thanks!
+          If you are looking for my resume then head to my LinkedIn profile. I'd
+          recommend visiting my Twitter handle as well. Thanks :)
         </Callout>
         <br />
         <div className={styles['divider']}>
