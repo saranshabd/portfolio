@@ -54,8 +54,7 @@ const Home: React.FC = () => {
       <div>
         <HomeContent
           heading='With great power comes great responsibility'
-          summary='Having the knowledge of something and actually applying that knowledge
-        to do something valuable are two very different things.'
+          summary='Having the knowledge of a subject and actually applying it in real life are two very differnt things. We need to focus on the latter.'
           url='/writings/with-great-power-comes-great-responsibility'
         />
       </div>
