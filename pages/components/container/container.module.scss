@@ -1,0 +1,19 @@
+.container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    .inner-container-center {
+        margin-bottom: 2rem;
+        text-align: center;
+        width: 40rem;
+        padding: 0rem 1rem;   
+    }
+
+    .inner-container-start {
+        margin-bottom: 2rem;
+        text-align: start;
+        width: 40rem;
+        padding: 0rem 1rem;   
+    }
+}
