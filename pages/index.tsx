@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
 import HomeContent from './components/homeContent/homeContent'
+import Callout from './components/callout/callout'
 
 const Home: React.FC = () => {
   return (
@@ -42,10 +43,10 @@ const Home: React.FC = () => {
           </a>
         </div>
         <br />
-        <div className={styles['callout']}>
+        <Callout>
           If you are looking for my technical profile then head to my LinkedIn
           profile. I'd recommend visiting my Twitter handle as well. Thanks!
-        </div>
+        </Callout>
         <br />
         <div className={styles['divider']}>
           <hr />
