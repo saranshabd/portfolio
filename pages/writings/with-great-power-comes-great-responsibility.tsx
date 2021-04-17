@@ -81,22 +81,22 @@ const WritingPage: React.FC = () => {
       <ContentContent>
         Most of the engineers today are self-centred and greedy. All they care
         about is what they are currently working on to (a) satisfy their ego and
-        (b) show it off in their resumes and on LinkedIn. They care about how
-        much money they are making and/or how much equity they are getting from
-        the startup that they have just joined. One of the best problem-solving
-        breeds is not thinking about the most crucial problems at all. Even in
-        colleges, engineers are taught how to solve algorithmic problems and
-        operating system concepts but not how they can be applied in real life
-        and how they can improve the world we all are living in. That's the
-        problem. Today's engineers are living in a bubble, a bubble that is
-        filled with wealth and luxury but almost has nothing to do with the
-        outside world. Think I'm wrong? Look at what is happening in the world
-        right now, everyone's livelihood has been affected due to the
-        Coronavirus pandemic except for software engineers. One may argue that
-        the physical world is ineffective to software, but how many tech
-        billionaires or even millionaires have donated their wealth to the ones
-        who need it in this period of crisis? I'm not talking about socialism,
-        I'm talking about textbook humanity.
+        (b) show it off in their resumes. They care about how much money they
+        are making and/or how much equity they are getting from the startup that
+        they have just joined. One of the best problem-solving breeds is not
+        thinking about the most crucial problems at all. Even in colleges,
+        engineers are taught how to solve algorithmic problems and operating
+        system concepts but not how they can be applied in real life and how
+        they can improve the world we all are living in. That's the problem.
+        Today's engineers are living in a bubble, a bubble that is filled with
+        wealth and luxury but almost has nothing to do with the outside world.
+        Think I'm wrong? Look at what is happening in the world right now,
+        everyone's livelihood has been affected due to the Coronavirus pandemic
+        except for software engineers. One may argue that the physical world is
+        ineffective to software, but how many tech billionaires or even
+        millionaires have donated their wealth to the ones who need it in this
+        period of crisis? I'm not talking about socialism, I'm talking about
+        textbook humanity.
       </ContentContent>
       <br />
       <ContentHeading>Do something - no matter the scale</ContentHeading>
