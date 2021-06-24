@@ -12,10 +12,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.5rem;
 
         .date {
             color: #888;
         }
+    }
+
+    .sub-heading {
+        margin-bottom: 0.5rem;
+        text-align: right;
+        color: #bbb;
     }
 }
