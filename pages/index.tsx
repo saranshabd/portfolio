@@ -23,7 +23,7 @@ const Home: React.FC = () => {
         >
           <FontAwesomeIcon
             icon={faTwitter}
-            size='1x'
+            // size='1x'
             className={`${styles['icon']} ${styles['twitter-icon']}`}
           />
         </a>
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
         >
           <FontAwesomeIcon
             icon={faLinkedin}
-            size='1x'
+            // size='1x'
             className={`${styles['icon']} ${styles['linkedin-icon']}`}
           />
         </a>
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
         >
           <FontAwesomeIcon
             icon={faGithub}
-            size='1x'
+            // size='1x'
             className={`${styles['icon']} ${styles['github-icon']}`}
           />
         </a>
