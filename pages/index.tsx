@@ -55,13 +55,30 @@ const Home: React.FC = () => {
         <hr />
       </div>
       <h4 className={styles['title-container']}>Writings</h4>
-      <div>
-        <HomeContent
-          heading='With great power comes great responsibility'
-          summary='Having the knowledge of a subject and actually applying it in real life are two very differnt things. We need to focus on the latter.'
-          url='/writings/with-great-power-comes-great-responsibility'
-        />
+      <HomeContent
+        heading='With great power comes great responsibility'
+        summary='Having the knowledge of a subject and actually applying it in real life are two very differnt things. We need to focus on the latter.'
+        url='/writings/with-great-power-comes-great-responsibility'
+      />
+      <br />
+      <div className={styles['divider']}>
+        <hr />
       </div>
+      <h4 className={styles['title-container']}>Technical articles</h4>
+      <HomeContent
+        heading='How Docker can help you sleep well at night?'
+        summary="This is an introductory article on Docker and the concepts of containerisation. It focuses on the
+        theoretical concepts involved in the functioning of Docker, and how it can be used to save one's time and
+        resources."
+        url='https://dev.to/saranshabd/how-docker-can-help-you-sleep-well-at-night-3c80'
+      />
+      <br />
+      <HomeContent
+        heading='How and why to use Docker as a package manager?'
+        summary='An article on how one can use Docker as a package manager on their development machine, instead of
+        `apt` or `brew` on Ubuntu and macOS respectively. There are some scenarios where `apt` and `brew` might fail you.'
+        url='https://dev.to/saranshabd/how-and-why-to-use-docker-as-a-package-manager-2jha'
+      />
     </Container>
   )
 }
