@@ -43,8 +43,12 @@ const Home: React.FC = () => {
       </div>
       <br />
       <Callout>
-        If you are looking for my resume then head to my LinkedIn profile. I'd
-        recommend visiting my Twitter handle as well. Thanks :)
+        If you're here looking for my resume, then head to my LinkedIn profile. It's hard enough to maintain resumes on
+        LinkedIn, than to do that here as well.
+        <br />
+        <br />
+        Hit me up at <a className={styles['email-link']} href="mailto:saranshabd@gmail.com">saranshabd@gmail.com</a> in
+        case you have something interesting to discuss, or if you want to collaborate on a project.
       </Callout>
       <br />
       <div className={styles['divider']}>
