@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './home.module.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import Container from '../components/container/container'
 import HomeContent from '../components/homeContent/homeContent'
@@ -26,7 +26,6 @@ const Home: React.FC = () => {
             size='1x'
             className={`${styles['icon']} ${styles['twitter-icon']}`}
           />
-          <p>Twitter</p>
         </a>
         <a
           href='https://www.linkedin.com/in/saranshabd'
@@ -38,7 +37,17 @@ const Home: React.FC = () => {
             size='1x'
             className={`${styles['icon']} ${styles['linkedin-icon']}`}
           />
-          <p>LinkedIn</p>
+        </a>
+        <a
+          href='https://www.github.com/saranshabd'
+          target='_blank'
+          className={`${styles['container']} ${styles['github-container']}`}
+        >
+          <FontAwesomeIcon
+            icon={faGithub}
+            size='1x'
+            className={`${styles['icon']} ${styles['github-icon']}`}
+          />
         </a>
       </div>
       <br />
