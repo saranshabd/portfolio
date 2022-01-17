@@ -1,0 +1,82 @@
+.container {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Libre Baskerville', serif;
+  line-height: 1.75rem;
+  padding: 0 0.5rem;
+}
+
+.container main {
+  max-width: 60rem;
+  padding: 1rem 2rem;
+}
+
+.container .pageTitleHeader {
+  color: #000000;
+  text-decoration: none;
+}
+
+.container footer {
+  max-width: 60rem;
+  padding: 0rem 2rem;
+  border-top: 1px solid #eaeaea;
+}
+
+.container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container .header .socialLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.container a {
+  color: #3498DB;
+}
+
+.container .pageLink {
+  color: #000000;
+  text-decoration: none;
+}
+
+.container .pageLink .pageLinkContainer {
+  background-color: #F2F3F4;
+  padding: 1rem 1rem;
+  margin: 1rem 0rem;
+  font-size: 1.5rem;
+}
+
+.container .pageLink:hover {
+  cursor: pointer;
+  color: #4D5656;
+}
+
+.container .blogHeaderContainer {
+  color: #000000;
+  text-decoration: none;
+}
+
+.container .blogHeaderContainer .blogHeader {
+  margin: 2rem 0rem;
+}
+
+.container .blogHeaderContainer .blogHeader:hover {
+  cursor: pointer;
+  color: #4D5656;
+}
+
+.container .blogHeaderContainer .blogHeader .title {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.container .blogHeaderContainer .blogHeader .publishedOn {
+  margin-top: 0.125rem;
+  color: #aaaaaa;
+}
