@@ -12,6 +12,11 @@ function TechnicalBlogs() {
       </p>
       <br />
       <BlogHeader
+        title="Simple Cookies with Node.js and any frontend JavaScript framework"
+        publishedOn="26th March 2022"
+        href="https://dev.to/saranshabd/simple-cookies-with-nodejs-and-any-frontend-javascript-framework-42ph"
+      />
+      <BlogHeader
         title="How and why to use Docker as a package manager?"
         publishedOn="10th November 2021"
         href="https://dev.to/saranshabd/how-and-why-to-use-docker-as-a-package-manager-2jha"
