@@ -16,6 +16,11 @@ function RandomThoughts() {
         publishedOn="14th April 2021"
         href="/with-great-power-comes-great-responsibility"
       />
+      <BlogHeader
+        title="Big Tech vs Startups: The myths and realities"
+        publishedOn="1st May 2022"
+        href="/big-tech-vs-startups-the-myths-and-realities"
+      />
     </BaseLayout>
   )
 }
