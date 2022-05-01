@@ -3,8 +3,8 @@ import BaseLayout from '../components/BaseLayout'
 function Blog() {
   return (
     <BaseLayout>
-      <h2>Big Tech vs Startups: The myths & realities</h2>
-      <p>1st May 2022</p>
+      <h2>Big Tech vs Startups: The myths and realities</h2>
+      <p>2nd May 2022</p>
       <br />
       <p>
         Should I join a startup or make myself comfortable at the Big Tech? Many
@@ -12,24 +12,24 @@ function Blog() {
         making a switch.
       </p>
       <p>
-        The objective of this blog is to correctly evaluate the pros and cons of
-        working at different types of companies in India. This is highly
-        specific for engineers as I can’t speak for any other profession.
-        Choosing a company type over the other is completely fine as long as it
-        is an informed decision. Otherwise, you are just shooting in the dark
-        and hoping for the best.
+        The objective of this blog is to evaluate the pros and cons of working
+        at different types of companies in India. This is specifically for
+        engineers as I can’t speak for any other profession. Choosing a company
+        type over the other is completely fine as long as it is an informed
+        decision. Otherwise, you are just shooting in the dark and hoping for
+        the best.
       </p>
       <br />
       <h3>Why should you listen to me?</h3>
       <p>
-        I recently switched jobs, so I have the current market data. I talked to
-        50+ engineers in India to understand their experiences. I had a chat
-        with engineers working at Amazon, Facebook, DE Shaw, JP Morgan, Goldman
-        Sachs, PhonePe, smallcase, INDmoney, Jupiter, epiFi, Even, Bureau, and a
-        few more.
+        I recently switched jobs, so I have the current market data. I have
+        talked to 50+ engineers in India to understand their experiences. I had
+        a chat with engineers working at Amazon, Facebook, DE Shaw, JP Morgan,
+        Goldman Sachs, PhonePe, smallcase, INDmoney, Jupiter, epiFi, Even,
+        Bureau, and a few more.
       </p>
       <p>
-        I tried to understand the projects they were working on, company
+        I tried to understand the projects they were working on, the company’s
         culture, lifestyle, engineering complexities, overall morale and
         salaries. The objective was to imagine myself in their shoes and decide
         whether I want that experience for at least the next couple of years of
@@ -48,19 +48,19 @@ function Blog() {
         is perceived as “prestigious” to work at. A few examples are Google,
         Amazon, Apple, Facebook, Uber, Zomato, Goldman Sachs, Byju’s, etc. Any
         company that you think is “too big” will fall into this category. These
-        companies have a lot of processes already built-in, and you need to use
-        these internal processes and systems to push new features. They have
-        almost all the theoretical software engineering principles, that you
-        have read, in place for improving code quality and productivity.
+        companies have built a lot of processes, and you need to use these
+        internal processes and systems to push new features. They have almost
+        all the theoretical software engineering principles, that you have read,
+        in place for improving code quality and productivity.
       </p>
       <p>
         The Indian startup ecosystem has been booming for the past few years. A
-        lot of young tech startups have been emerging, and all of them are
-        loaded with cash. A few examples are CRED, BlinkIt, PhonePe and
-        smallcase. They are disrupting one industry after the other, and are
-        always looking to hire fresh talent. These companies are a great place
-        to work at. They are fast-moving and disruptive but also organised
-        enough to have a few engineering processes in place.
+        lot of young tech startups are emerging, and all of them are loaded with
+        cash. A few examples are CRED, BlinkIt, PhonePe and smallcase. They are
+        disrupting one industry after the other, and are always looking to hire
+        fresh talent. These companies are a great place to work at. They are
+        fast-moving and disruptive but also organised enough to have a few
+        engineering processes in place.
       </p>
       <br />
       <h3>Less than ideal options</h3>
@@ -91,26 +91,26 @@ function Blog() {
         If the co-founders of the early-stage startup you are planning to join
         do not meet these criteria then you might be taking a casual risk by
         joining the company. I am not saying that the startup is destined to
-        fail. There are a lot of factors that come into play to determine the
-        success or failure of a company. There is also a huge factor of luck.
+        fail; there are a lot of factors that come into play to determine the
+        success or failure of a company. Also, there is a huge factor of luck.
         But, I think it makes a lot more sense to take a calculated risk as
         opposed to a casual one. If a calculated risk doesn’t work out then you
-        will be able to precisely measure the fault in your risk calculation
-        formula. But, you will not learn anything from the failure or, even the
-        success, of a casual risk.
+        will be able to precisely measure the fault in your risk evaluation.
+        But, you will not learn anything from the failure or, even the success,
+        of a casual risk.
       </p>
       <p>
-        You should ideally go for the Big Tech or prominent Indian startups.
-        Going for the average company doesn't make sense. Going to early-stage
-        startups is a personal choice that will need more data to make an
-        informed decision.
+        Hence, you should ideally go for the Big Tech or prominent Indian
+        startups. Going for the average company doesn't make sense. Going to
+        early-stage startups is a personal choice that will need more data to
+        make an informed decision.
       </p>
       <br />
       <h3>The myths and realities of working at the Big tech</h3>
       <p>
         Working at Google proves you are one of the smartest engineers in the
         country, Yeah, that’s a myth. There are a lot of smart folks working
-        outside the Google premise. Joining FAANG only proved that you are good
+        outside the Google premises. Joining FAANG only proved that you are good
         at solving algorithmic problems and designing systems on paper.
       </p>
       <p>
@@ -169,8 +169,8 @@ function Blog() {
         to function otherwise it’s destined to fail.
       </p>
       <p>
-        If you want to boost your learning experience by still earning as much
-        as the Big Tech then prominent startups might be your best option.
+        Hence, if you want to boost your learning experience by still earning as
+        much as the Big Tech then prominent startups might be your best option.
         Although, you will have to give up on social status. You will not be
         respected as much as a Google or Apple engineer. So, be ready for that
         as well.
@@ -195,7 +195,6 @@ function Blog() {
         There is nothing wrong with taking calculated risks, even if it ends up
         upsetting a few people.
       </p>
-      <br />
       <p>Stay humble and dream big!</p>
     </BaseLayout>
   )
