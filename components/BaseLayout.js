@@ -1,10 +1,10 @@
-import Image from 'next/image'
+import Image from "next/image";
 
-import DefaultHead from './DefaultHead'
-import Link from './Link'
-import Footer from './Footer'
+import DefaultHead from "./DefaultHead";
+import Link from "./Link";
+import Footer from "./Footer";
 
-import styles from '../styles/Home.module.css'
+import styles from "../styles/Home.module.css";
 
 function BaseLayout({ children }) {
   return (
@@ -42,6 +42,14 @@ function BaseLayout({ children }) {
                 alt="GitHub"
               />
             </Link>
+            <Link href="https://saranshabd.substack.com">
+              <Image
+                height="25rem"
+                width="25rem"
+                src="/Substack.svg"
+                alt="Substack"
+              />
+            </Link>
           </div>
         </div>
 
@@ -54,7 +62,7 @@ function BaseLayout({ children }) {
 
       <Footer />
     </div>
-  )
+  );
 }
 
-export default BaseLayout
+export default BaseLayout;
