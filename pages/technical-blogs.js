@@ -12,6 +12,11 @@ function TechnicalBlogs() {
       </p>
       <br />
       <BlogHeader
+        title="Go migrate from-express"
+        publishedOn="30th October 2022"
+        href="https://dev.to/saranshabd/go-migrate-from-express-2amm"
+      />
+      <BlogHeader
         title="Simple Cookies with Node.js and any frontend JavaScript framework"
         publishedOn="26th March 2022"
         href="https://dev.to/saranshabd/simple-cookies-with-nodejs-and-any-frontend-javascript-framework-42ph"
