@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Libre Baskerville", serif;
   line-height: 1.75rem;
   padding: 0 0.5rem;
 }
 
 .container main {
+  width: 100%;
   max-width: 60rem;
   padding: 1rem 2rem;
 }
@@ -17,6 +18,12 @@
 .container .pageTitleHeader {
   color: #000000;
   text-decoration: none;
+}
+
+@media screen and (max-width: 420px) {
+  .container .pageTitleHeader {
+    font-size: 0.75rem;
+  }
 }
 
 .container footer {
@@ -37,7 +44,7 @@
 }
 
 .container a {
-  color: #3498DB;
+  color: #3498db;
 }
 
 .container .pageLink {
@@ -46,7 +53,7 @@
 }
 
 .container .pageLink .pageLinkContainer {
-  background-color: #F2F3F4;
+  background-color: #f2f3f4;
   padding: 1rem 1rem;
   margin: 1rem 0rem;
   font-size: 1.5rem;
@@ -54,7 +61,7 @@
 
 .container .pageLink:hover {
   cursor: pointer;
-  color: #4D5656;
+  color: #4d5656;
 }
 
 .container .blogHeaderContainer {
@@ -68,7 +75,7 @@
 
 .container .blogHeaderContainer .blogHeader:hover {
   cursor: pointer;
-  color: #4D5656;
+  color: #4d5656;
 }
 
 .container .blogHeaderContainer .blogHeader .title {
@@ -79,4 +86,8 @@
 .container .blogHeaderContainer .blogHeader .publishedOn {
   margin-top: 0.125rem;
   color: #aaaaaa;
+}
+
+.colorSuccess {
+  color: #4caf50;
 }
