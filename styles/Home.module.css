@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Libre Baskerville", serif;
+  font-family: 'Libre Baskerville', serif;
   line-height: 1.75rem;
   padding: 0 0.5rem;
 }
@@ -18,12 +18,6 @@
 .container .pageTitleHeader {
   color: #000000;
   text-decoration: none;
-}
-
-@media screen and (max-width: 420px) {
-  .container .pageTitleHeader {
-    font-size: 0.75rem;
-  }
 }
 
 .container footer {
