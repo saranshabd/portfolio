@@ -1,5 +1,7 @@
 import BaseLayout from '../components/BaseLayout'
 
+import styles from '../styles/Home.module.css'
+
 function Blog() {
   return (
     <BaseLayout>
@@ -8,7 +10,7 @@ function Blog() {
 
       <br />
 
-      <h3>Introduction</h3>
+      <h3 className={styles.pageSubTitleHeader}>Introduction</h3>
       <p>
         Are engineers today an essential part of our society? Are they as
         valuable as lawyers or doctors or politicians? In my opinion, the answer
@@ -16,9 +18,9 @@ function Blog() {
         explanation is more fascinating than the answer itself.
       </p>
 
-      <br />
-
-      <h3>Application of first principals</h3>
+      <h3 className={styles.pageSubTitleHeader}>
+        Application of first principals
+      </h3>
       <p>
         Application of first principles is one of the first lessons taught to
         every engineer at the beginning of their academic career. Thinking from
@@ -40,9 +42,9 @@ function Blog() {
         power comes great responsibility&quot;.
       </p>
 
-      <br />
-
-      <h3>What are engineers busy doing?</h3>
+      <h3 className={styles.pageSubTitleHeader}>
+        What are engineers busy doing?
+      </h3>
       <p>
         There are a few engineers trying to solve the problems of landing a
         rover on Mars, curing cancer using machine learning or connecting the
@@ -83,9 +85,9 @@ function Blog() {
         socialism, I&apos;m talking about textbook humanity.
       </p>
 
-      <br />
-
-      <h3>Do something - no matter the scale</h3>
+      <h3 className={styles.pageSubTitleHeader}>
+        Do something - no matter the scale
+      </h3>
       <p>
         Engineers have this skill to create something from nothing, software is
         literally something out of nothing - it is intangible. We need to use

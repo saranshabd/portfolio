@@ -1,6 +1,8 @@
 import BaseLayout from '../components/BaseLayout'
 import BlogHeader from '../components/BlogHeader'
 
+import styles from '../styles/Home.module.css'
+
 function Ares3() {
   function getURL(slug) {
     return `https://open.substack.com/pub/saranshabd/p/${slug}?utm_campaign=portfolio&utm_medium=web`
@@ -8,13 +10,12 @@ function Ares3() {
 
   return (
     <BaseLayout>
-      <h2>Ares 3</h2>
+      <h2 className={styles.pageSubTitleHeader}>Ares 3</h2>
       <p>
         These are the Substack articles I have posted on Ares 3: Exploration log
         entries. Here I post stuff that I explore out of curiosity, which is not
         restricted to just programming.
       </p>
-      <br />
       <BlogHeader
         title="Create virtual identity within minutes"
         publishedOn="26th October 2022"

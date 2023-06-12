@@ -1,5 +1,7 @@
 import BaseLayout from '../components/BaseLayout'
 
+import styles from '../styles/Home.module.css'
+
 function Blog() {
   return (
     <BaseLayout>
@@ -19,8 +21,9 @@ function Blog() {
         decision. Otherwise, you are just shooting in the dark and hoping for
         the best.
       </p>
-      <br />
-      <h3>Why should you listen to me?</h3>
+      <h3 className={styles.pageSubTitleHeader}>
+        Why should you listen to me?
+      </h3>
       <p>
         I recently switched jobs, so I have the current market data. I have
         talked to 50+ engineers in India to understand their experiences. I had
@@ -35,8 +38,9 @@ function Blog() {
         whether I want that experience for at least the next couple of years of
         my life or not.
       </p>
-      <br />
-      <h3>Let’s first categorise the market</h3>
+      <h3 className={styles.pageSubTitleHeader}>
+        Let’s first categorise the market
+      </h3>
       There are broadly two types of tech companies to work in India:
       <ol>
         <li>FAANG or the Big Tech</li>
@@ -62,8 +66,7 @@ function Blog() {
         fast-moving and disruptive but also organised enough to have a few
         engineering processes in place.
       </p>
-      <br />
-      <h3>Less than ideal options</h3>
+      <h3 className={styles.pageSubTitleHeader}>Less than ideal options</h3>
       <p>
         There are two more categories of companies that I have left out of my
         argument: early-stage startups and the “average” companies. The average
@@ -105,8 +108,9 @@ function Blog() {
         early-stage startups is a personal choice that will need more data to
         make an informed decision.
       </p>
-      <br />
-      <h3>The myths and realities of working at the Big tech</h3>
+      <h3 className={styles.pageSubTitleHeader}>
+        The myths and realities of working at the Big tech
+      </h3>
       <p>
         Working at Google proves you are one of the smartest engineers in the
         country, Yeah, that’s a myth. There are a lot of smart folks working
@@ -140,8 +144,9 @@ function Blog() {
         compromise your absolute learning and self-worth then you might want to
         stay away from the Big Tech for a while.
       </p>
-      <br />
-      <h3>The myths and realities of working at a startup</h3>
+      <h3 className={styles.pageSubTitleHeader}>
+        The myths and realities of working at a startup
+      </h3>
       <p>
         Aah… the cool ones. Startup engineers have all figured it out. They work
         for a crazy number of hours to build a piece of tech that will change
@@ -175,8 +180,7 @@ function Blog() {
         respected as much as a Google or Apple engineer. So, be ready for that
         as well.
       </p>
-      <br />
-      <h3>Conclusion</h3>
+      <h3 className={styles.pageSubTitleHeader}>Conclusion</h3>
       <p>
         Joining any company is a risk. You don’t know what is going to happen to
         the company or yourself in the next couple of years. The least you could

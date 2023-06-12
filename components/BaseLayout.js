@@ -1,6 +1,5 @@
 import Image from 'next/image'
 
-import DefaultHead from './DefaultHead'
 import Link from './Link'
 import Footer from './Footer'
 
@@ -9,7 +8,7 @@ import styles from '../styles/Home.module.css'
 function BaseLayout({ children, header = true, footer = true }) {
   return (
     <div className={styles.container}>
-      <DefaultHead />
+      {/* <DefaultHead /> */}
 
       <main>
         {header && (
@@ -54,8 +53,6 @@ function BaseLayout({ children, header = true, footer = true }) {
                 </Link>
               </div>
             </div>
-
-            <br />
           </>
         )}
 

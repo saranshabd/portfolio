@@ -1,10 +1,12 @@
 import BaseLayout from '../components/BaseLayout'
 import BlogHeader from '../components/BlogHeader'
 
+import styles from '../styles/Home.module.css'
+
 function RandomThoughts() {
   return (
     <BaseLayout>
-      <h2>Random thoughts</h2>
+      <h2 className={styles.pageSubTitleHeader}>Random thoughts</h2>
       <p>
         Here is a compilation of stuff that comes across my mind in my free
         time. The lack of content here does not imply that I am busy all the
@@ -20,8 +22,7 @@ function RandomThoughts() {
         publishedOn="14th April 2021"
         href="/with-great-power-comes-great-responsibility"
       />
-      <br />
-      <h2>Internet dump</h2>
+      <h2 className={styles.pageSubTitleHeader}>Internet dump</h2>
       <p>
         Interesting stuff I found while surfing the internet. I love the content
         so much that I keep coming back to it.
@@ -56,7 +57,6 @@ function RandomThoughts() {
           </li>
         </ul>
       </p>
-      <br />
       <p>
         I am not a huge fan of cliché clickbait content but Naval Ravikant is
         just too good to ignore. He might be the only rich guy who is actually

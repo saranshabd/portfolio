@@ -9,6 +9,10 @@
   padding: 0 0.5rem;
 }
 
+.container .pageTitle {
+  font-size: 10rem;
+}
+
 .container main {
   width: 100%;
   max-width: 60rem;
@@ -17,10 +21,21 @@
 
 .container .pageTitleHeader {
   color: #000000;
-  text-decoration: none;
+  text-decoration: underline;
+  font-size: small;
+}
+
+.container .pageSubTitleHeader {
+  color: #f57f17;
 }
 
 .container footer {
+  max-width: 60rem;
+  padding: 0rem 2rem;
+  border-top: 1px solid #eaeaea;
+}
+
+.container .verticalLine {
   max-width: 60rem;
   padding: 0rem 2rem;
   border-top: 1px solid #eaeaea;
@@ -38,7 +53,8 @@
 }
 
 .container a {
-  color: #3498db;
+  /* color: #c0ca33; */
+  color: #4fc3f7;
 }
 
 .container .pageLink {

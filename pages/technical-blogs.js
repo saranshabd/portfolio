@@ -1,16 +1,22 @@
 import BaseLayout from '../components/BaseLayout'
 import BlogHeader from '../components/BlogHeader'
 
+import styles from '../styles/Home.module.css'
+
 function TechnicalBlogs() {
   return (
     <BaseLayout>
-      <h2>Technical Blogs</h2>
+      <h2 className={styles.pageSubTitleHeader}>Technical Blogs</h2>
       <p>
         With the very limited amount of knowledge and experience I have gained
         so far, here are some of the blogs that I have written explaining the
         technologies and principals I use myself while writing code.
       </p>
-      <br />
+      <BlogHeader
+        title="Contextualizing Identifiers"
+        publishedOn="12th June 2023"
+        href="/contextualizing-identifiers"
+      />
       <BlogHeader
         title="Go migrate from-express"
         publishedOn="30th October 2022"
