@@ -18,6 +18,11 @@ function TechnicalBlogs() {
         href="/contextualizing-identifiers"
       />
       <BlogHeader
+        title="Contextualising identifiers in a system"
+        publishedOn="2nd August 2023"
+        href="https://dev.to/saranshabd/contextualising-identifiers-in-a-system-4mm6"
+      />
+      <BlogHeader
         title="Go migrate from-express"
         publishedOn="30th October 2022"
         href="https://dev.to/saranshabd/go-migrate-from-express-2amm"
