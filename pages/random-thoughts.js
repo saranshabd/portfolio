@@ -16,11 +16,13 @@ function RandomThoughts() {
         title="Big Tech vs Startups: The myths and realities"
         publishedOn="2nd May 2022"
         href="/big-tech-vs-startups-the-myths-and-realities"
+        description="The objective of this blog is to evaluate the pros and cons of working at different types of companies in India."
       />
       <BlogHeader
         title="With great power comes great responsibility"
         publishedOn="14th April 2021"
         href="/with-great-power-comes-great-responsibility"
+        description="We need to stop serving the privileged by creating things that don't have any effect on the real world."
       />
       <h2 className={styles.pageSubTitleHeader}>Internet dump</h2>
       <p>

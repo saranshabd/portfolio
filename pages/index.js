@@ -1,18 +1,18 @@
-import BaseLayout from "../components/BaseLayout";
-import PageLink from "../components/PageLink";
+import BaseLayout from '../components/BaseLayout'
+import PageLink from '../components/PageLink'
 
 function Home() {
   return (
     <BaseLayout>
       <p>Welcome to my corner on the internet!</p>
       <p>
-        I work as a Software Engineer at{" "}
+        I work as a Software Engineer at{' '}
         <a href="https://smallcase.com" target="_blank">
           smallcase
         </a>
         , which is a platform to invest in model portfolios of stocks, ETFs and
         REITs. Prior to that, I worked at a bunch of tech companies ranging from
-        a unicorn in India to an early-stage{" "}
+        a unicorn in India to an early-stage{' '}
         <a href="https://www.ycombinator.com/">YC</a> fintech startup.
       </p>
       <p>
@@ -26,11 +26,11 @@ function Home() {
         started watching Formula 1.
       </p>
       <br />
-      <PageLink href="/random-thoughts">Random thoughts</PageLink>
       <PageLink href="/technical-blogs">Technical blogs</PageLink>
+      <PageLink href="/random-thoughts">Random thoughts</PageLink>
       <PageLink href="/ares-3">Ares 3: Exploration log entries</PageLink>
     </BaseLayout>
-  );
+  )
 }
 
-export default Home;
+export default Home

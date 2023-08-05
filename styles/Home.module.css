@@ -91,11 +91,17 @@
 .container .blogHeaderContainer .blogHeader .title {
   font-size: larger;
   font-weight: 700;
+  text-decoration: underline;
 }
 
 .container .blogHeaderContainer .blogHeader .publishedOn {
   margin-top: 0.125rem;
   color: #aaaaaa;
+}
+
+.container .blogHeaderContainer .blogHeader .description {
+  /* color: #aaaaaa; */
+  font-style: italic;
 }
 
 .colorSuccess {
