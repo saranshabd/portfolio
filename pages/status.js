@@ -7,17 +7,26 @@ function Status() {
   return (
     <BaseLayout>
       <p>
-        Alive: <span className={styles.colorSuccess}>Yes!</span>
-      </p>
-      <p>Health: Skinny these days</p>
-      <p>Relationship: LMAO</p>
-      <p>
-        Work: <Link href="https://www.smallcase.com">smallcase</Link>
+        <b>Alive</b>: <span className={styles.colorSuccess}>Yes!</span> I have
+        no idea how I will update the website once I am not alive.
       </p>
       <p>
-        Off-work: <Link href="https://ispirt.in">iSPIRT</Link>
+        <b>Health</b>: My diet has more chocolates than fruits in it.
       </p>
-      <p>Location: Bengaluru, India</p>
+      <p>
+        <b>Relationship</b>: Don't even talk about it.
+      </p>
+      <p>
+        <b>Work</b>: <Link href="https://www.smallcase.com">smallcase</Link>...
+        still.
+      </p>
+      <p>
+        <b>Off-work</b>: Have been reading lately.
+      </p>
+      <p>
+        <b>Location</b>: Bengaluru, India - still traumatized by house hunting
+        in the city.
+      </p>
       <br />
       <p>Just check my Twitter and be done with it.</p>
     </BaseLayout>
