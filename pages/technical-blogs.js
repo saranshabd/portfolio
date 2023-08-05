@@ -13,11 +13,6 @@ function TechnicalBlogs() {
         technologies and principals I use myself while writing code.
       </p>
       <BlogHeader
-        title="Contextualizing Identifiers"
-        publishedOn="12th June 2023"
-        href="/contextualizing-identifiers"
-      />
-      <BlogHeader
         title="Contextualising identifiers in a system"
         publishedOn="2nd August 2023"
         href="https://dev.to/saranshabd/contextualising-identifiers-in-a-system-4mm6"
