@@ -232,6 +232,27 @@ async function runCommand(page, command) {
   await input.press('Enter')
 }
 
+async function setInputSelection(input, selectionStart, selectionEnd = selectionStart) {
+  await input.evaluate(
+    (node, { start, end }) => {
+      node.focus()
+      node.setSelectionRange(start, end)
+    },
+    { start: selectionStart, end: selectionEnd }
+  )
+}
+
+async function expectMirroredInput(page, expectedValue) {
+  const input = page.getByTestId('terminal-input')
+  const display = page.getByTestId('terminal-input-display')
+  const mirroredText = await display.evaluate((node) =>
+    (node.textContent ?? '').replace(/\u00a0/gu, '')
+  )
+
+  await expect(input).toHaveValue(expectedValue)
+  expect(mirroredText).toBe(expectedValue)
+}
+
 async function readTextColor(locator) {
   return locator.evaluate((node) => window.getComputedStyle(node).color)
 }
@@ -504,6 +525,89 @@ test('typing after clicking terminal content still targets the input', async ({
     page.getByText('I work as a software engineer', { exact: false })
   ).toBeVisible()
   await expect(page.getByTestId('terminal-input')).toHaveValue('')
+})
+
+test('Ctrl+W deletes the previous word and keeps the mirrored display in sync', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+  const parentToken = page.getByTestId('terminal-input-parent-token')
+  const suffix = page.getByTestId('terminal-input-suffix')
+
+  await input.fill('status professional')
+  await input.press('Control+w')
+
+  await expectMirroredInput(page, 'status ')
+  await expect(parentToken).toHaveText('status')
+  await expect(parentToken).toHaveClass(
+    /terminal-input-parent-token--highlighted/
+  )
+  await expect(suffix).toHaveText(' ')
+})
+
+test('Ctrl+U deletes to the caret and keeps the mirrored display in sync', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+  const parentToken = page.getByTestId('terminal-input-parent-token')
+
+  await input.fill('status professional')
+  await setInputSelection(input, 6)
+  await input.press('Control+u')
+
+  await expectMirroredInput(page, ' professional')
+  await expect(parentToken).toHaveText('professional')
+  await expect(parentToken).not.toHaveClass(
+    /terminal-input-parent-token--highlighted/
+  )
+})
+
+test('Ctrl+W deletes the current selection', async ({ page }) => {
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+
+  await input.fill('status professional')
+  await setInputSelection(input, 7, 'status professional'.length)
+  await input.press('Control+w')
+
+  await expectMirroredInput(page, 'status ')
+})
+
+test('Ctrl+U deletes from the start of the line to the selection end', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+
+  await input.fill('status professional')
+  await setInputSelection(input, 7, 'status professional'.length)
+  await input.press('Control+u')
+
+  await expectMirroredInput(page, '')
+})
+
+test('commands still submit normally after readline-style shortcut edits', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+
+  await input.fill('status professional')
+  await input.press('Control+w')
+  await input.type(' professional')
+  await input.press('Enter')
+
+  await expect(
+    page.getByText('Bengaluru, India', { exact: false })
+  ).toBeVisible()
+  await expect(input).toHaveValue('')
 })
 
 test('recognized parent commands highlight only the first input token', async ({
