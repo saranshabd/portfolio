@@ -21,4 +21,5 @@ This repository is a single-screen terminal portfolio built with Next.js App Rou
 - Treat `components/TerminalShell.js` as the runtime center of the app.
 - Treat `public/commands/*` as content, not arbitrary assets.
 - If you change command parsing rules, update Playwright coverage too.
-- If you change shell behavior, verify it with `npm run test:e2e`.
+- Use `pnpm` as the package manager for installs, scripts, and lockfiles.
+- If you change shell behavior, verify it with `pnpm test:e2e`.

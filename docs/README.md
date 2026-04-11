@@ -2,6 +2,8 @@
 
 This repository is a single-screen terminal portfolio built with the Next.js App Router. The site intentionally has a small runtime surface area: one shell component, route-driven command boot, markdown-backed command content, and client-side root-session persistence.
 
+Use `pnpm` as the package manager for installs, script execution, and lockfile updates.
+
 ## Read This First
 
 - [Architecture Overview](./architecture.md): high-level map of the runtime and data flow.

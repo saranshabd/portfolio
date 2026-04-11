@@ -51,7 +51,7 @@ If the command markdown contract changes, update both:
 
 When changing terminal behavior:
 
-1. Run `npm run test:e2e`.
+1. Run `pnpm test:e2e`.
 2. If the issue is visual or interaction-heavy, reproduce it with Playwright rather than guessing from code.
 3. Tighten the relevant assertion so the bug is encoded into the suite.
 
