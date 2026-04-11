@@ -26,6 +26,12 @@ This repository is a single-screen terminal portfolio built with the Next.js App
 - `public/commands/custom/**/*`: executable custom command content and manual nodes.
 - `public/content/welcome.md`: intro screen content shown on empty-history loads.
 
+## Routing Model
+
+- `/`: normal home boot. The shell restores the persisted root session when it has entries. If there is no initialized root session, or the persisted root session is empty after `clear`, the welcome markdown is shown.
+- `/<...segments>`: route-command boot. The shell ignores persisted history for that load, joins the URL segments into a command such as `about` or `birthday 2023`, auto-submits it, and renders only that route-derived prompt/output pair.
+- Invalid non-root routes intentionally use the same terminal shell. They auto-submit the derived command and render the standard shell-style command-not-found output instead of a framework 404 page.
+
 ## Editing Guidance
 
 - Add or update markdown-backed commands by editing `public/commands/custom/<name>.md` or nested paths such as `public/commands/custom/<name>/index.md` and `public/commands/custom/<name>/<arg>.md`.
