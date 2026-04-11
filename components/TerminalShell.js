@@ -163,11 +163,30 @@ function normalizeCommandName(tokens) {
   return tokens.map((token) => token.toLowerCase()).join(' ')
 }
 
+function getInputDisplaySegments(inputValue) {
+  if (!inputValue) {
+    return {
+      leadingWhitespace: '',
+      parentToken: '',
+      suffix: '',
+    }
+  }
+
+  const match = inputValue.match(/^(\s*)(\S+)?([\s\S]*)$/u)
+
+  return {
+    leadingWhitespace: match?.[1] ?? '',
+    parentToken: match?.[2] ?? '',
+    suffix: match?.[3] ?? '',
+  }
+}
+
 export default function TerminalShell({
   bootMode = 'root',
   builtins,
   customManualEntries,
   customRunnableCommands,
+  knownParentCommands = [],
   initialCommand = '',
   welcomeMarkdown,
 }) {
@@ -180,6 +199,11 @@ export default function TerminalShell({
 
   const manualIndex = createCommandMap([...builtins, ...customManualEntries])
   const runnableIndex = createCommandMap(customRunnableCommands)
+  const knownParentCommandSet = new Set(knownParentCommands)
+  const inputDisplay = getInputDisplaySegments(inputValue)
+  const isKnownParentCommand =
+    inputDisplay.parentToken.length > 0 &&
+    knownParentCommandSet.has(inputDisplay.parentToken.toLowerCase())
 
   async function persistRootEntries(nextEntries) {
     setEntries(nextEntries)
@@ -443,7 +467,35 @@ export default function TerminalShell({
                 data-testid="terminal-input-display"
               >
                 <span className="terminal-input-text">
-                  {inputValue || '\u00a0'}
+                  {inputValue ? (
+                    <>
+                      {inputDisplay.leadingWhitespace ? (
+                        <span>{inputDisplay.leadingWhitespace}</span>
+                      ) : null}
+                      {inputDisplay.parentToken ? (
+                        <span
+                          className={
+                            isKnownParentCommand
+                              ? 'terminal-input-parent-token terminal-input-parent-token--highlighted'
+                              : 'terminal-input-parent-token'
+                          }
+                          data-testid="terminal-input-parent-token"
+                        >
+                          {inputDisplay.parentToken}
+                        </span>
+                      ) : null}
+                      {inputDisplay.suffix ? (
+                        <span
+                          className="terminal-input-suffix"
+                          data-testid="terminal-input-suffix"
+                        >
+                          {inputDisplay.suffix}
+                        </span>
+                      ) : null}
+                    </>
+                  ) : (
+                    '\u00a0'
+                  )}
                 </span>
                 <span className="terminal-input-cursor" />
               </div>

@@ -7,6 +7,7 @@
   --terminal-border: rgba(128, 149, 198, 0.22);
   --terminal-prompt: #8be9fd;
   --terminal-accent: #7ee787;
+  --terminal-input-parent-command: var(--terminal-accent);
   --terminal-error: #ff7b72;
   --terminal-selection: rgba(139, 233, 253, 0.28);
   --terminal-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
@@ -156,6 +157,10 @@ img {
 
 .terminal-input-text {
   min-width: 0;
+}
+
+.terminal-input-parent-token--highlighted {
+  color: var(--terminal-input-parent-command);
 }
 
 .terminal-input-cursor {
