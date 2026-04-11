@@ -232,6 +232,10 @@ async function runCommand(page, command) {
   await input.press('Enter')
 }
 
+async function readTextColor(locator) {
+  return locator.evaluate((node) => window.getComputedStyle(node).color)
+}
+
 async function readPersistedRootSession(page) {
   return page.evaluate(async () => {
     const DATABASE_NAME = 'terminal-portfolio'
@@ -500,6 +504,58 @@ test('typing after clicking terminal content still targets the input', async ({
     page.getByText('I work as a software engineer', { exact: false })
   ).toBeVisible()
   await expect(page.getByTestId('terminal-input')).toHaveValue('')
+})
+
+test('recognized parent commands highlight only the first input token', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+  const parentToken = page.getByTestId('terminal-input-parent-token')
+  const suffix = page.getByTestId('terminal-input-suffix')
+  const display = page.getByTestId('terminal-input-display')
+
+  for (const command of ['help', 'man', 'about', 'status', 'birthday']) {
+    await input.fill(command)
+    await expect(parentToken).toHaveText(command)
+    await expect(parentToken).toHaveClass(
+      /terminal-input-parent-token--highlighted/
+    )
+  }
+
+  await input.fill('asdlkj')
+  await expect(parentToken).toHaveText('asdlkj')
+  await expect(parentToken).not.toHaveClass(
+    /terminal-input-parent-token--highlighted/
+  )
+
+  await input.fill('sta')
+  await expect(parentToken).toHaveText('sta')
+  await expect(parentToken).not.toHaveClass(
+    /terminal-input-parent-token--highlighted/
+  )
+
+  await input.fill('status professional')
+  await expect(parentToken).toHaveText('status')
+  await expect(parentToken).toHaveClass(
+    /terminal-input-parent-token--highlighted/
+  )
+  await expect(suffix).toHaveText(' professional')
+
+  await input.fill('birthday 2023')
+  await expect(parentToken).toHaveText('birthday')
+  await expect(parentToken).toHaveClass(
+    /terminal-input-parent-token--highlighted/
+  )
+  await expect(suffix).toHaveText(' 2023')
+
+  const parentColor = await readTextColor(parentToken)
+  const suffixColor = await readTextColor(suffix)
+  const displayColor = await readTextColor(display)
+
+  expect(parentColor).not.toBe(displayColor)
+  expect(suffixColor).toBe(displayColor)
 })
 
 test.describe('responsive smoke', () => {
