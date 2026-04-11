@@ -706,6 +706,27 @@ test('commands still submit normally after readline-style shortcut edits', async
   await expect(input).toHaveValue('')
 })
 
+test('Ctrl+L clears the terminal like the clear command', async ({ page }) => {
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+
+  await runCommand(page, 'about')
+  await runCommand(page, 'help')
+  await input.fill('status professional')
+  await input.press('Control+l')
+
+  await expect(page.getByTestId('terminal-entry')).toHaveCount(0)
+  await expect(input).toHaveValue('')
+
+  const persistedSession = await readPersistedRootSession(page)
+
+  expect(persistedSession).toEqual({
+    initialized: true,
+    entries: [],
+  })
+})
+
 test('recognized parent commands highlight only the first input token', async ({
   page,
 }) => {
