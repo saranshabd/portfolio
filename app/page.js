@@ -1,8 +1,5 @@
-import TerminalShell from '../components/TerminalShell'
-import { loadTerminalContent } from '../lib/terminal-content'
+import { renderTerminalPage } from './terminal-page'
 
 export default async function HomePage() {
-  const terminalContent = await loadTerminalContent()
-
-  return <TerminalShell {...terminalContent} />
+  return renderTerminalPage()
 }

@@ -5,11 +5,13 @@
 The site is intentionally narrow:
 
 - `app/layout.js` sets up the global document, local JetBrains Mono font loading, metadata, and analytics.
-- `app/page.js` is the only page entrypoint. It performs the server-side content load and renders the terminal shell.
+- `app/page.js` renders the terminal shell in normal root boot mode.
+- `app/[...segments]/page.js` renders the same shell for every non-root route and derives an initial command from the path.
+- `app/terminal-page.js` holds the shared page-rendering logic.
 - `components/TerminalShell.js` is the main client runtime. It owns shell state, startup hydration, input capture, command dispatch, scrolling, and persistence writes.
 - `components/MarkdownRenderer.js` turns markdown strings into React elements styled to feel like terminal output instead of article prose.
 
-There is no multi-page portfolio routing anymore. The product is one terminal interface mounted at `/`.
+There is no multi-layout portfolio routing anymore. Every route renders the same terminal interface, and non-root paths boot by auto-submitting the route-derived command.
 
 ## Data Flow
 
@@ -21,8 +23,8 @@ The page render path is:
    - `manual`: content above the `---` divider
    - `output`: content below the `---` divider
    - `summary`: a short derived line used in generated help output
-4. The loaded content is passed into `TerminalShell`.
-5. `TerminalShell` hydrates client-side state and decides whether to restore history from IndexedDB or show the welcome screen.
+4. The loaded content plus boot mode props are passed into `TerminalShell`.
+5. `TerminalShell` hydrates client-side state and either restores the root session, shows welcome, or auto-runs the route-derived command.
 
 ## State Model
 
@@ -30,7 +32,7 @@ The terminal UI stores an ordered array of `entries`. Each entry is rendered in 
 
 Entry types currently include:
 
-- `welcome`: the intro panel shown on empty-history loads
+- `welcome`: the intro panel shown on never-initialized root loads
 - `prompt`: the prompt line showing the command the user entered
 - `output`: normal command output
 - `error`: shell-style failure output, including unknown commands
@@ -41,18 +43,18 @@ This entry list is the canonical session history and is persisted in IndexedDB.
 
 Persistence is purely client-side:
 
-- `lib/terminal-storage.js` stores one session record in IndexedDB under the key `session`.
+- `lib/terminal-storage.js` stores the root session record in IndexedDB under the key `root-session`.
 - The record shape is:
   - `initialized: boolean`
   - `entries: TerminalEntry[]`
 
 At page load:
 
-- If no stored session exists, the shell shows the welcome screen.
-- If a stored session exists and has entries, the shell restores them.
-- If a stored session exists but `entries` is empty, the shell treats that as empty history and shows the welcome screen again.
+- If no stored root session exists, the `/` shell shows the welcome screen.
+- If a stored root session exists, `/` restores its entries even when the array is empty.
+- If the current route is non-root, the shell skips restore and replaces visible history with the derived route command for that load.
 
-That last rule is important because `clear` empties session history, and a later reload should behave like a fresh visit.
+That distinction matters because `clear` now empties the root session persistently, while route-driven loads intentionally remain ephemeral.
 
 ## Content Boundary
 

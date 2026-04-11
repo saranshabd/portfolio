@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import MarkdownRenderer from './MarkdownRenderer'
-import { loadSession, saveSession } from '../lib/terminal-storage'
+import { loadRootSession, saveRootSession } from '../lib/terminal-storage'
 
 const PROMPT_LABEL = 'shabd@portfolio'
 
@@ -23,17 +23,108 @@ function createWelcomeEntry(markdown) {
   return createEntry('welcome', markdown)
 }
 
-function buildHelpMarkdown({ builtins, customCommands }) {
+function createCommandMap(commands) {
+  return commands.reduce((commandMap, command) => {
+    commandMap[command.name.toLowerCase()] = command
+    return commandMap
+  }, {})
+}
+
+function getSummaryForNode(commandName, manualIndex, runnableIndex) {
+  return manualIndex[commandName]?.summary ?? runnableIndex[commandName]?.summary ?? ''
+}
+
+function collapseVariantBranch(node, prefixTokens = []) {
+  const branchTokens = [...prefixTokens, node.token]
+
+  if (!node.isRunnable && node.children.length === 1) {
+    return collapseVariantBranch(node.children[0], branchTokens)
+  }
+
+  return {
+    label: branchTokens.join(' '),
+    node,
+  }
+}
+
+function buildCustomHelpEntries(customRunnableCommands, customManualEntries) {
+  const rootNodes = []
+  const nodesByPath = new Map()
+  const manualIndex = createCommandMap(customManualEntries)
+  const runnableIndex = createCommandMap(customRunnableCommands)
+
+  for (const command of customRunnableCommands) {
+    const tokens = command.name.split(' ')
+    let pathKey = ''
+    let parentNode = null
+
+    for (const token of tokens) {
+      pathKey = pathKey ? `${pathKey} ${token}` : token
+
+      if (!nodesByPath.has(pathKey)) {
+        const node = {
+          token,
+          path: pathKey,
+          isRunnable: false,
+          children: [],
+        }
+
+        nodesByPath.set(pathKey, node)
+
+        if (parentNode) {
+          parentNode.children.push(node)
+        } else {
+          rootNodes.push(node)
+        }
+      }
+
+      parentNode = nodesByPath.get(pathKey)
+    }
+
+    if (parentNode) {
+      parentNode.isRunnable = true
+    }
+  }
+
+  function toHelpEntry(node) {
+    const commandName = node.path
+
+    if (node.children.length === 0) {
+      return {
+        label: commandName,
+        summary: getSummaryForNode(commandName, manualIndex, runnableIndex),
+      }
+    }
+
+    const variants = node.children
+      .map((childNode) => collapseVariantBranch(childNode))
+      .map((childBranch) => childBranch.label)
+
+    return {
+      label: `${commandName} {${variants.join(', ')}}`,
+      summary: getSummaryForNode(commandName, manualIndex, runnableIndex),
+    }
+  }
+
+  return rootNodes
+    .map((node) => toHelpEntry(node))
+    .sort((left, right) => left.label.localeCompare(right.label))
+}
+
+function buildHelpMarkdown({ builtins, customRunnableCommands, customManualEntries }) {
   const builtinList = builtins
     .map((command) => `- \`${command.name}\`${command.summary ? ` - ${command.summary}` : ''}`)
     .join('\n')
 
+  const customHelpEntries = buildCustomHelpEntries(
+    customRunnableCommands,
+    customManualEntries
+  )
   const customList =
-    customCommands.length > 0
-      ? customCommands
+    customHelpEntries.length > 0
+      ? customHelpEntries
           .map(
-            (command) =>
-              `- \`${command.name}\`${command.summary ? ` - ${command.summary}` : ''}`
+            (entry) => `- \`${entry.label}\`${entry.summary ? ` - ${entry.summary}` : ''}`
           )
           .join('\n')
       : '- No custom commands installed yet.'
@@ -61,16 +152,23 @@ function buildManErrorMarkdown(command) {
     : 'Usage: `man <command>`'
 }
 
-function indexCommands(builtins, customCommands) {
-  return [...builtins, ...customCommands].reduce((commandIndex, command) => {
-    commandIndex[command.name] = command
-    return commandIndex
-  }, {})
+function parseCommandLine(commandLine) {
+  return commandLine
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+}
+
+function normalizeCommandName(tokens) {
+  return tokens.map((token) => token.toLowerCase()).join(' ')
 }
 
 export default function TerminalShell({
+  bootMode = 'root',
   builtins,
-  customCommands,
+  customManualEntries,
+  customRunnableCommands,
+  initialCommand = '',
   welcomeMarkdown,
 }) {
   const [entries, setEntries] = useState([])
@@ -80,19 +178,128 @@ export default function TerminalShell({
   const inputRef = useRef(null)
   const outputRef = useRef(null)
 
-  const commandIndex = indexCommands(builtins, customCommands)
+  const manualIndex = createCommandMap([...builtins, ...customManualEntries])
+  const runnableIndex = createCommandMap(customRunnableCommands)
+
+  async function persistRootEntries(nextEntries) {
+    setEntries(nextEntries)
+    await saveRootSession({
+      initialized: true,
+      entries: nextEntries,
+    })
+  }
+
+  function commitRouteEntries(nextEntries) {
+    setEntries(nextEntries)
+  }
+
+  async function executeCommand(commandLine, existingEntries, { persist }) {
+    const tokens = parseCommandLine(commandLine)
+
+    if (tokens.length === 0) {
+      return
+    }
+
+    const normalizedCommand = normalizeCommandName(tokens)
+    const normalizedCommandName = tokens[0].toLowerCase()
+    const nextEntries = [...existingEntries, createPromptEntry(commandLine)]
+
+    if (normalizedCommandName === 'clear') {
+      if (persist) {
+        await persistRootEntries([])
+      } else {
+        commitRouteEntries([])
+      }
+
+      return
+    }
+
+    if (normalizedCommandName === 'help') {
+      nextEntries.push(
+        createEntry(
+          'output',
+          buildHelpMarkdown({
+            builtins,
+            customRunnableCommands,
+            customManualEntries,
+          })
+        )
+      )
+
+      if (persist) {
+        await persistRootEntries(nextEntries)
+      } else {
+        commitRouteEntries(nextEntries)
+      }
+
+      return
+    }
+
+    if (normalizedCommandName === 'man') {
+      const requestedTokens = tokens.slice(1)
+      const requestedCommand = normalizeCommandName(requestedTokens)
+      const manualEntry =
+        requestedTokens.length === 1 ? manualIndex[requestedCommand]?.manual : null
+
+      nextEntries.push(
+        createEntry(
+          manualEntry ? 'output' : 'error',
+          manualEntry ?? buildManErrorMarkdown(requestedCommand)
+        )
+      )
+
+      if (persist) {
+        await persistRootEntries(nextEntries)
+      } else {
+        commitRouteEntries(nextEntries)
+      }
+
+      return
+    }
+
+    const customCommand = runnableIndex[normalizedCommand]
+
+    nextEntries.push(
+      createEntry(
+        customCommand ? 'output' : 'error',
+        customCommand?.output ?? buildUnknownCommandMarkdown(normalizedCommand)
+      )
+    )
+
+    if (persist) {
+      await persistRootEntries(nextEntries)
+    } else {
+      commitRouteEntries(nextEntries)
+    }
+  }
 
   useEffect(() => {
     let isMounted = true
 
     async function hydrateTerminal() {
-      const storedSession = await loadSession()
+      if (bootMode === 'route') {
+        const routeEntries = []
+
+        if (initialCommand) {
+          await executeCommand(initialCommand, routeEntries, { persist: false })
+        } else {
+          commitRouteEntries(routeEntries)
+        }
+
+        if (isMounted) {
+          setIsHydrated(true)
+        }
+
+        return
+      }
+
+      const storedSession = await loadRootSession()
 
       if (!isMounted) {
         return
       }
 
-      if (storedSession?.initialized && (storedSession.entries?.length ?? 0) > 0) {
+      if (storedSession?.initialized) {
         setEntries(storedSession.entries ?? [])
       } else {
         setEntries([createWelcomeEntry(welcomeMarkdown)])
@@ -106,7 +313,7 @@ export default function TerminalShell({
     return () => {
       isMounted = false
     }
-  }, [welcomeMarkdown])
+  }, [bootMode, initialCommand, welcomeMarkdown])
 
   useEffect(() => {
     if (!isHydrated) {
@@ -184,14 +391,6 @@ export default function TerminalShell({
     }
   }, [entries, isHydrated])
 
-  async function commitEntries(nextEntries) {
-    setEntries(nextEntries)
-    await saveSession({
-      initialized: true,
-      entries: nextEntries,
-    })
-  }
-
   async function handleCommandSubmission(event) {
     event.preventDefault()
 
@@ -201,63 +400,8 @@ export default function TerminalShell({
       return
     }
 
-    const [commandName, ...args] = commandLine.split(/\s+/)
-    const normalizedCommand = commandName.toLowerCase()
-
     setInputValue('')
-
-    if (normalizedCommand === 'clear') {
-      await commitEntries([])
-      return
-    }
-
-    const nextEntries = [...entries, createPromptEntry(commandLine)]
-
-    if (normalizedCommand === 'help') {
-      nextEntries.push(
-        createEntry(
-          'output',
-          buildHelpMarkdown({
-            builtins,
-            customCommands,
-          })
-        )
-      )
-
-      await commitEntries(nextEntries)
-      return
-    }
-
-    if (normalizedCommand === 'man') {
-      const requestedCommand = args[0]?.toLowerCase()
-      const manualEntry = requestedCommand
-        ? commandIndex[requestedCommand]?.manual
-        : null
-
-      nextEntries.push(
-        createEntry(
-          manualEntry ? 'output' : 'error',
-          manualEntry ?? buildManErrorMarkdown(requestedCommand)
-        )
-      )
-
-      await commitEntries(nextEntries)
-      return
-    }
-
-    const customCommand = commandIndex[normalizedCommand]
-
-    if (customCommand?.kind === 'custom') {
-      nextEntries.push(createEntry('output', customCommand.output))
-      await commitEntries(nextEntries)
-      return
-    }
-
-    nextEntries.push(
-      createEntry('error', buildUnknownCommandMarkdown(normalizedCommand))
-    )
-
-    await commitEntries(nextEntries)
+    await executeCommand(commandLine, entries, { persist: bootMode === 'root' })
   }
 
   return (

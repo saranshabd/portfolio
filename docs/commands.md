@@ -35,13 +35,18 @@ Parsing is handled by `splitMarkdownSections()` in `lib/command-markdown.js`.
 It reads:
 
 - `public/commands/builtins/*.md`
-- `public/commands/custom/*.md`
+- `public/commands/custom/**/*`
 - `public/content/welcome.md`
 
-For each command file it produces a normalized command object:
+For built-ins it produces a flat command list. For custom commands it produces two related indexes:
+
+- runnable commands keyed by full token path, such as `about`, `status professional`, or `birthday 2023`
+- manual entries keyed by command node, such as `about`, `status`, or `birthday`
+
+Each command record still carries:
 
 - `kind`: `builtin` or `custom`
-- `name`: filename without `.md`
+- `name`: normalized token path joined by spaces
 - `manual`: content above the divider
 - `output`: content below the divider
 - `summary`: a short line derived from the manual section
@@ -65,7 +70,7 @@ Their visible documentation is still markdown-backed, but their execution logic 
 It combines:
 
 - all built-in command docs
-- all discovered custom commands
+- all discovered custom commands, grouped by command node when they have nested variants
 
 The result is emitted as a normal terminal output entry.
 
@@ -76,6 +81,11 @@ The result is emitted as a normal terminal output entry.
 If the command exists:
 
 - the command's `manual` markdown is rendered
+
+Custom manual lookup supports both:
+
+- `public/commands/custom/<command>.md`
+- `public/commands/custom/<command>/index.md`
 
 If the command does not exist:
 
@@ -88,7 +98,7 @@ If the command does not exist:
 - it wipes visible entries in memory
 - it persists an empty `entries` array into IndexedDB
 
-The next reload then shows the welcome panel because hydration treats empty history as a first-load state.
+The next root reload stays blank because root hydration now distinguishes a cleared initialized session from a never-initialized one.
 
 ## Custom Commands
 
@@ -96,15 +106,18 @@ Custom commands are file-discovered. There is no central registry in code.
 
 To add a new custom command:
 
-1. Create `public/commands/custom/<command>.md`.
+1. Create one of:
+   - `public/commands/custom/<command>.md`
+   - `public/commands/custom/<command>/index.md`
+   - `public/commands/custom/<command>/<arg>.md`
 2. Put the manual text above `---`.
 3. Put the visible command output below `---`.
 
 At runtime:
 
-- the loader reads the file
-- `TerminalShell` indexes it by filename
-- entering `<command>` emits the markdown from the command's `output` section
+- non-`index.md` files become runnable commands keyed by their full path tokens
+- both flat files and `index.md` files can provide `man <command>` manuals
+- entering the full token path emits the markdown from the command's `output` section
 
 This makes command expansion mostly content work rather than React work.
 
@@ -113,13 +126,13 @@ This makes command expansion mostly content work rather than React work.
 When the user submits a command:
 
 1. `handleCommandSubmission()` trims and tokenizes the input.
-2. The command name is normalized to lowercase.
+2. The full token sequence is normalized to lowercase.
 3. The shell appends a `prompt` entry showing what the user typed.
 4. Dispatch happens in this order:
    - `clear`
    - `help`
    - `man`
-   - custom command lookup
+   - custom runnable command lookup
    - unknown command fallback
 5. The resulting `output` or `error` entry is appended.
 6. The updated `entries` list is persisted to IndexedDB.
