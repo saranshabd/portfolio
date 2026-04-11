@@ -36,7 +36,7 @@ It reads:
 
 - `public/commands/builtins/*.md`
 - `public/commands/custom/**/*`
-- `public/content/welcome.md`
+- `public/content/intro.md`
 
 For built-ins it produces a flat command list. For custom commands it produces two related indexes:
 

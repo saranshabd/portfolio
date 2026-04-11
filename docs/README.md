@@ -26,7 +26,7 @@ Use `pnpm` as the package manager for installs, script execution, and lockfile u
 - `lib/terminal-storage.js`: IndexedDB persistence layer for the root shell session history.
 - `public/commands/builtins/*.md`: documentation for built-in commands.
 - `public/commands/custom/**/*`: executable custom command content and manual nodes.
-- `public/content/welcome.md`: intro screen content shown on empty-history loads.
+- `public/content/intro.md`: intro screen content shown on empty-history loads.
 
 ## Routing Model
 

@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import MarkdownRenderer from './MarkdownRenderer'
 import { loadRootSession, saveRootSession } from '../lib/terminal-storage'
 
-const PROMPT_LABEL = 'shabd@portfolio'
+const PROMPT_LABEL = 'internet@127.0.0.1'
 
 function createEntry(type, content) {
   return {
@@ -16,7 +16,10 @@ function createEntry(type, content) {
 }
 
 function createPromptEntry(command) {
-  return createEntry('prompt', `${PROMPT_LABEL}:~$ ${command}`)
+  return createEntry('prompt', {
+    prompt: `${PROMPT_LABEL}:~$`,
+    command,
+  })
 }
 
 function createWelcomeEntry(markdown) {
@@ -178,6 +181,29 @@ function getInputDisplaySegments(inputValue) {
     leadingWhitespace: match?.[1] ?? '',
     parentToken: match?.[2] ?? '',
     suffix: match?.[3] ?? '',
+  }
+}
+
+function normalizePromptContent(content) {
+  if (content && typeof content === 'object') {
+    return {
+      prompt: content.prompt ?? `${PROMPT_LABEL}:~$`,
+      command: content.command ?? '',
+    }
+  }
+
+  const legacyPrefix = `${PROMPT_LABEL}:~$`
+
+  if (typeof content === 'string' && content.startsWith(legacyPrefix)) {
+    return {
+      prompt: legacyPrefix,
+      command: content.slice(legacyPrefix.length).trimStart(),
+    }
+  }
+
+  return {
+    prompt: legacyPrefix,
+    command: typeof content === 'string' ? content : '',
   }
 }
 
@@ -534,7 +560,20 @@ export default function TerminalShell({
               key={entry.id}
             >
               {entry.type === 'prompt' ? (
-                <p className="terminal-prompt-line">{entry.content}</p>
+                (() => {
+                  const promptContent = normalizePromptContent(entry.content)
+
+                  return (
+                    <p className="terminal-prompt-line">
+                      <span className="terminal-prompt-line__label">
+                        {promptContent.prompt}
+                      </span>
+                      <span className="terminal-prompt-line__command">
+                        {promptContent.command || '\u00a0'}
+                      </span>
+                    </p>
+                  )
+                })()
               ) : (
                 <div className="terminal-markdown">
                   <MarkdownRenderer>{entry.content}</MarkdownRenderer>

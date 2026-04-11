@@ -347,6 +347,44 @@ test('first root visit shows the welcome markdown panel', async ({ page }) => {
   ).toBeVisible()
 })
 
+test('welcome markdown highlights inline command snippets', async ({ page }) => {
+  await page.goto('/')
+
+  const helpSnippet = page.locator('.terminal-markdown code', { hasText: 'help' })
+  const manSnippet = page.locator('.terminal-markdown code', { hasText: 'man <command>' })
+  const clearSnippet = page.locator('.terminal-markdown code', { hasText: 'clear' })
+
+  await expect(helpSnippet).toBeVisible()
+  await expect(manSnippet).toBeVisible()
+  await expect(clearSnippet).toBeVisible()
+})
+
+test('welcome markdown ordered lists keep markers inside the content box', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const orderedList = page.locator('.terminal-entry--welcome .terminal-markdown ol').first()
+  const firstItem = orderedList.locator('li').first()
+
+  await expect(orderedList).toBeVisible()
+  await expect(firstItem).toBeVisible()
+
+  const listStylePosition = await orderedList.evaluate(
+    (node) => window.getComputedStyle(node).listStylePosition
+  )
+  const itemPaddingLeft = await firstItem.evaluate(
+    (node) => window.getComputedStyle(node).paddingLeft
+  )
+  const itemTextIndent = await firstItem.evaluate(
+    (node) => window.getComputedStyle(node).textIndent
+  )
+
+  expect(listStylePosition).toBe('inside')
+  expect(itemPaddingLeft).toBe('22.4px')
+  expect(itemTextIndent).toBe('-22.4px')
+})
+
 test('help lists built-ins and grouped custom commands', async ({ page }) => {
   const builtins = readBuiltinFixtures(BUILTIN_COMMANDS_DIRECTORY)
   const customFixtures = readCustomFixtures(CUSTOM_COMMANDS_DIRECTORY)

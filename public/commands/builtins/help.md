@@ -1,5 +1,5 @@
 # help
 
-List every built-in command and every markdown-backed custom command currently installed in the terminal.
+Lists all the commands and subcommands in a helpful, orderly fashion. Useful for newcomers and noobs.
 ---
 The `help` command is handled by the application and prints a generated command index.

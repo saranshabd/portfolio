@@ -53,13 +53,14 @@ Entry types currently include:
 - `output`: normal command output
 - `error`: shell-style failure output, including unknown commands
 
-This entry list is the canonical session history and is persisted in IndexedDB.
+This entry list is the canonical session history. Browser persistence can be disabled with `IS_BROWSER_PERSISTENCE_ENABLED` in `lib/terminal-config.js`, in which case the history stays in-memory only for the current page session.
 
 ## Persistence Boundary
 
 Persistence is purely client-side:
 
 - `lib/terminal-storage.js` stores the root session record in IndexedDB under the key `root-session`.
+- `lib/terminal-config.js` controls whether those IndexedDB reads and writes are enabled at all.
 - The record shape is:
   - `initialized: boolean`
   - `entries: TerminalEntry[]`
@@ -80,6 +81,6 @@ Command content is file-driven, not hardcoded into JSX:
 
 - Built-in docs live in `public/commands/builtins`.
 - Executable custom commands live in `public/commands/custom`.
-- The welcome panel lives in `public/content/welcome.md`.
+- The welcome panel lives in `public/content/intro.md`.
 
 This split matters because built-in commands are behaviorally implemented in code, but their visible documentation is maintained as markdown.

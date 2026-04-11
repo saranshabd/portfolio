@@ -22,16 +22,6 @@ export default function MarkdownRenderer({ children }) {
             </a>
           )
         },
-        code: ({ inline, children, ...props }) =>
-          inline ? (
-            <code className="terminal-markdown__inline-code" {...props}>
-              {children}
-            </code>
-          ) : (
-            <code className="terminal-markdown__code-block" {...props}>
-              {children}
-            </code>
-          ),
       }}
     >
       {children}
