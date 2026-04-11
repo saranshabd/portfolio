@@ -51,10 +51,11 @@ Persistence is purely client-side:
 At page load:
 
 - If no stored root session exists, the `/` shell shows the welcome screen.
-- If a stored root session exists, `/` restores its entries even when the array is empty.
+- If a stored root session exists and has entries, `/` restores them.
+- If a stored root session exists but the entries array is empty, `/` shows the welcome screen again.
 - If the current route is non-root, the shell skips restore and replaces visible history with the derived route command for that load.
 
-That distinction matters because `clear` now empties the root session persistently, while route-driven loads intentionally remain ephemeral.
+That distinction matters because `clear` resets the root shell back to the intro experience, while route-driven loads intentionally remain ephemeral.
 
 ## Content Boundary
 

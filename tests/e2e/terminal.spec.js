@@ -296,6 +296,46 @@ async function readPersistedRootSession(page) {
   })
 }
 
+async function writeLegacySession(page, session) {
+  await page.evaluate(async (nextSession) => {
+    const DATABASE_NAME = 'terminal-portfolio'
+    const STORE_NAME = 'shell'
+    const LEGACY_SESSION_KEY = 'session'
+
+    await new Promise((resolve, reject) => {
+      const request = window.indexedDB.open(DATABASE_NAME, 2)
+
+      request.onupgradeneeded = () => {
+        const database = request.result
+
+        if (!database.objectStoreNames.contains(STORE_NAME)) {
+          database.createObjectStore(STORE_NAME)
+        }
+      }
+
+      request.onsuccess = () => {
+        const database = request.result
+        const transaction = database.transaction(STORE_NAME, 'readwrite')
+        const store = transaction.objectStore(STORE_NAME)
+
+        transaction.oncomplete = () => {
+          database.close()
+          resolve()
+        }
+
+        transaction.onerror = () => {
+          database.close()
+          reject(transaction.error)
+        }
+
+        store.put(nextSession, LEGACY_SESSION_KEY)
+      }
+
+      request.onerror = () => reject(request.error)
+    })
+  }, session)
+}
+
 test('first root visit shows the welcome markdown panel', async ({ page }) => {
   await page.goto('/')
 
@@ -363,7 +403,7 @@ test('built-in and directory-backed manuals are reachable through man', async ({
     ).toBeVisible()
   }
 
-  for (const command of ['about', 'status']) {
+  for (const command of ['about', 'status', 'birthday']) {
     const manualEntry = manualEntries.find((entry) => entry.name === command)
 
     await runCommand(page, `man ${command}`)
@@ -390,9 +430,30 @@ test('bare parents, invalid subcommands, and gibberish commands show shell-style
   ).toHaveCount(3)
 })
 
-test('root history persists across reload and clear leaves the root blank', async ({
+test('legacy root sessions still restore after the storage-key migration', async ({
   page,
 }) => {
+  await page.goto('/')
+
+  await writeLegacySession(page, {
+    initialized: true,
+    entries: [
+      {
+        id: 'legacy-output',
+        type: 'output',
+        content: 'Legacy root session survives.',
+      },
+    ],
+  })
+
+  await page.reload()
+
+  await expect(
+    page.getByText('Legacy root session survives.', { exact: false })
+  ).toBeVisible()
+})
+
+test('root history persists across reload', async ({ page }) => {
   await page.goto('/')
 
   await runCommand(page, 'about')
@@ -408,7 +469,14 @@ test('root history persists across reload and clear leaves the root blank', asyn
     page.getByText('I work as a software engineer', { exact: false })
   ).toBeVisible()
   await expect(page.getByText('Available Commands')).toBeVisible()
+})
 
+test('clear resets the root page back to the intro on reload', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  await runCommand(page, 'about')
   await runCommand(page, 'clear')
   await expect(page.getByTestId('terminal-entry')).toHaveCount(0)
 
@@ -421,10 +489,12 @@ test('root history persists across reload and clear leaves the root blank', asyn
 
   await page.reload()
 
-  await expect(page.getByTestId('terminal-entry')).toHaveCount(0)
   await expect(
     page.getByText('Welcome to my corner on the internet')
-  ).toHaveCount(0)
+  ).toBeVisible()
+  await expect(
+    page.getByText('Start with help to see what is installed', { exact: false })
+  ).toBeVisible()
 })
 
 test('subroutes auto-run derived commands and ignore persisted root history', async ({
@@ -475,6 +545,32 @@ test('nested subroutes auto-run the full token path and reset on reload', async 
   await expect(
     page.getByText('I work as a software engineer', { exact: false })
   ).toHaveCount(0)
+})
+
+test('subpage reload discards ad hoc history and restores only the route command', async ({
+  page,
+}) => {
+  await page.goto('/about')
+
+  await expect(
+    page.getByText('shabd@portfolio:~$ about', { exact: false })
+  ).toBeVisible()
+  await expect(
+    page.getByText('I work as a software engineer', { exact: false })
+  ).toBeVisible()
+
+  await runCommand(page, 'writing')
+  await expect(page.getByText('Ares 3 on Substack', { exact: false })).toBeVisible()
+
+  await page.reload()
+
+  await expect(
+    page.getByText('shabd@portfolio:~$ about', { exact: false })
+  ).toBeVisible()
+  await expect(
+    page.getByText('I work as a software engineer', { exact: false })
+  ).toBeVisible()
+  await expect(page.getByText('Ares 3 on Substack', { exact: false })).toHaveCount(0)
 })
 
 test('invalid routes use the normal command-not-found output instead of a framework 404', async ({
