@@ -7,12 +7,13 @@ The repository uses Playwright for end-to-end browser coverage in `tests/e2e/ter
 The tests are intentionally behavior-first. They verify:
 
 - first-load welcome behavior
-- command discovery and help output
+- recursive command discovery and grouped help output
 - built-in manual lookup
-- custom command execution
+- custom command execution, including nested paths
 - unknown command fallback
-- client-side persistence across reloads
-- `clear` behavior
+- root-only client-side persistence across reloads
+- `clear` behavior on `/`
+- route-driven auto-execution and reset behavior
 - output auto-scroll behavior
 - keyboard capture after click-away interactions
 - a mobile smoke case
@@ -26,8 +27,9 @@ The suite reads markdown files directly from:
 
 That means:
 
-- every custom command file must execute successfully
+- every runnable custom command file must execute successfully
 - every built-in command doc must be reachable via `man <command>`
+- directory-backed manuals such as `<command>/index.md` must be reachable via `man <command>`
 
 If a new command markdown file is added and the runtime does not support it correctly, the suite should fail automatically.
 
@@ -56,5 +58,6 @@ When changing layout or shell internals, prefer assertions around visible user b
 
 - input bar remains in view
 - welcome panel appears on correct startup states
-- output is restored after reload
+- output is restored after reload on `/`
+- route-derived commands replace visible history on non-root loads
 - typing still lands in the prompt after click-away interactions
