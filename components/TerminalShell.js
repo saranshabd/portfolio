@@ -360,7 +360,7 @@ export default function TerminalShell({
         return
       }
 
-      if (storedSession?.initialized) {
+      if (storedSession?.initialized && (storedSession.entries?.length ?? 0) > 0) {
         setEntries(storedSession.entries ?? [])
       } else {
         setEntries([createWelcomeEntry(welcomeMarkdown)])

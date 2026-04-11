@@ -98,7 +98,7 @@ If the command does not exist:
 - it wipes visible entries in memory
 - it persists an empty `entries` array into IndexedDB
 
-The next root reload stays blank because root hydration now distinguishes a cleared initialized session from a never-initialized one.
+The next root reload shows the welcome panel again because empty history is treated like a fresh root visit.
 
 ## Custom Commands
 
