@@ -254,6 +254,14 @@ export default function TerminalShell({
     setEntries(nextEntries)
   }
 
+  async function clearTerminal({ persist }) {
+    if (persist) {
+      await persistRootEntries([])
+    } else {
+      commitRouteEntries([])
+    }
+  }
+
   async function executeCommand(commandLine, existingEntries, { persist }) {
     const tokens = parseCommandLine(commandLine)
 
@@ -266,12 +274,7 @@ export default function TerminalShell({
     const nextEntries = [...existingEntries, createPromptEntry(commandLine)]
 
     if (normalizedCommandName === 'clear') {
-      if (persist) {
-        await persistRootEntries([])
-      } else {
-        commitRouteEntries([])
-      }
-
+      await clearTerminal({ persist })
       return
     }
 
@@ -488,6 +491,13 @@ export default function TerminalShell({
     }
 
     const normalizedKey = event.key.toLowerCase()
+
+    if (normalizedKey === 'l') {
+      event.preventDefault()
+      setInputValue('')
+      void clearTerminal({ persist: bootMode === 'root' })
+      return
+    }
 
     if (normalizedKey !== 'u' && normalizedKey !== 'w') {
       return
