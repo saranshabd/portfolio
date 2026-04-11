@@ -13,18 +13,34 @@ The site is intentionally narrow:
 
 There is no multi-layout portfolio routing anymore. Every route renders the same terminal interface, and non-root paths boot by auto-submitting the route-derived command.
 
+## Routing Contract
+
+The App Router is intentionally split into two entry modes that both render the same shell:
+
+- Root mode via `app/page.js`: loads the shell for `/` and allows normal client-side session restore.
+- Route mode via `app/[...segments]/page.js`: catches every non-root path, converts path segments into a command string, and passes that command into the shell as an auto-run boot input.
+
+This means:
+
+- `/about` becomes `about`
+- `/birthday/2023` becomes `birthday 2023`
+- `/totally/made/up` becomes `totally made up` and still renders the shell, which then shows the normal unknown-command error
+
+The framework router is not used to distinguish valid and invalid portfolio pages. Command resolution happens inside the shell runtime instead.
+
 ## Data Flow
 
 The page render path is:
 
-1. `app/page.js` calls `loadTerminalContent()`.
+1. `app/page.js` or `app/[...segments]/page.js` calls `renderTerminalPage()` in `app/terminal-page.js`.
 2. `lib/terminal-content.js` reads markdown files from `public/content`, `public/commands/builtins`, and `public/commands/custom`.
 3. Command markdown is normalized by `lib/command-markdown.js` into:
    - `manual`: content above the `---` divider
    - `output`: content below the `---` divider
    - `summary`: a short derived line used in generated help output
-4. The loaded content plus boot mode props are passed into `TerminalShell`.
-5. `TerminalShell` hydrates client-side state and either restores the root session, shows welcome, or auto-runs the route-derived command.
+4. `app/terminal-page.js` derives `bootMode` plus `initialCommand` from the route segments.
+5. The loaded content plus boot props are passed into `TerminalShell`.
+6. `TerminalShell` hydrates client-side state and either restores the root session, shows welcome, or auto-runs the route-derived command.
 
 ## State Model
 
@@ -54,6 +70,7 @@ At page load:
 - If a stored root session exists and has entries, `/` restores them.
 - If a stored root session exists but the entries array is empty, `/` shows the welcome screen again.
 - If the current route is non-root, the shell skips restore and replaces visible history with the derived route command for that load.
+- Reloading a non-root route repeats the same route-command boot and does not preserve ad hoc command history from that subpage session.
 
 That distinction matters because `clear` resets the root shell back to the intro experience, while route-driven loads intentionally remain ephemeral.
 

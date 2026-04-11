@@ -14,6 +14,7 @@ The tests are intentionally behavior-first. They verify:
 - root-only client-side persistence across reloads
 - `clear` behavior on `/`
 - route-driven auto-execution and reset behavior
+- invalid non-root routes falling back to the shell instead of a framework 404
 - output auto-scroll behavior
 - keyboard capture after click-away interactions
 - a mobile smoke case
@@ -59,5 +60,7 @@ When changing layout or shell internals, prefer assertions around visible user b
 - input bar remains in view
 - welcome panel appears on correct startup states
 - output is restored after reload on `/`
+- `clear` on `/` returns the next reload to the welcome screen
 - route-derived commands replace visible history on non-root loads
+- non-root reloads reset back to the route-derived command only
 - typing still lands in the prompt after click-away interactions
