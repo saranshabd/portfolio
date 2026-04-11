@@ -181,6 +181,42 @@ function getInputDisplaySegments(inputValue) {
   }
 }
 
+function deleteSelectedRange(value, selectionStart, selectionEnd) {
+  return {
+    nextValue: value.slice(0, selectionStart) + value.slice(selectionEnd),
+    nextSelectionStart: selectionStart,
+    nextSelectionEnd: selectionStart,
+  }
+}
+
+function deleteWordLeft(value, selectionStart, selectionEnd) {
+  if (selectionStart !== selectionEnd) {
+    return deleteSelectedRange(value, selectionStart, selectionEnd)
+  }
+
+  let deleteStart = selectionStart
+
+  while (deleteStart > 0 && /\s/u.test(value.charAt(deleteStart - 1))) {
+    deleteStart -= 1
+  }
+
+  while (deleteStart > 0 && !/\s/u.test(value.charAt(deleteStart - 1))) {
+    deleteStart -= 1
+  }
+
+  return deleteSelectedRange(value, deleteStart, selectionEnd)
+}
+
+function deleteToLineStart(value, selectionStart, selectionEnd) {
+  const deleteEnd = selectionStart === selectionEnd ? selectionStart : selectionEnd
+
+  return {
+    nextValue: value.slice(deleteEnd),
+    nextSelectionStart: 0,
+    nextSelectionEnd: 0,
+  }
+}
+
 export default function TerminalShell({
   bootMode = 'root',
   builtins,
@@ -196,6 +232,7 @@ export default function TerminalShell({
 
   const inputRef = useRef(null)
   const outputRef = useRef(null)
+  const pendingSelectionRef = useRef(null)
 
   const manualIndex = createCommandMap([...builtins, ...customManualEntries])
   const runnableIndex = createCommandMap(customRunnableCommands)
@@ -393,6 +430,23 @@ export default function TerminalShell({
   }, [isHydrated])
 
   useLayoutEffect(() => {
+    const pendingSelection = pendingSelectionRef.current
+
+    if (!pendingSelection) {
+      return
+    }
+
+    const inputElement = inputRef.current
+
+    if (!inputElement) {
+      return
+    }
+
+    inputElement.setSelectionRange(pendingSelection.start, pendingSelection.end)
+    pendingSelectionRef.current = null
+  }, [inputValue])
+
+  useLayoutEffect(() => {
     if (!isHydrated || entries.length === 0) {
       return
     }
@@ -426,6 +480,33 @@ export default function TerminalShell({
 
     setInputValue('')
     await executeCommand(commandLine, entries, { persist: bootMode === 'root' })
+  }
+
+  function handleInputKeyDown(event) {
+    if (!event.ctrlKey || event.metaKey || event.altKey) {
+      return
+    }
+
+    const normalizedKey = event.key.toLowerCase()
+
+    if (normalizedKey !== 'u' && normalizedKey !== 'w') {
+      return
+    }
+
+    const inputElement = event.currentTarget
+    const selectionStart = inputElement.selectionStart ?? inputValue.length
+    const selectionEnd = inputElement.selectionEnd ?? inputValue.length
+    const editResult =
+      normalizedKey === 'w'
+        ? deleteWordLeft(inputValue, selectionStart, selectionEnd)
+        : deleteToLineStart(inputValue, selectionStart, selectionEnd)
+
+    event.preventDefault()
+    pendingSelectionRef.current = {
+      start: editResult.nextSelectionStart,
+      end: editResult.nextSelectionEnd,
+    }
+    setInputValue(editResult.nextValue)
   }
 
   return (
@@ -508,6 +589,7 @@ export default function TerminalShell({
                 disabled={!isHydrated}
                 id="terminal-input"
                 onChange={(event) => setInputValue(event.target.value)}
+                onKeyDown={handleInputKeyDown}
                 ref={inputRef}
                 spellCheck={false}
                 type="text"
