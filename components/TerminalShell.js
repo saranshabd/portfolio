@@ -1,5 +1,7 @@
 'use client'
 
+import { House } from 'lucide-react'
+import Link from 'next/link'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import MarkdownRenderer from './MarkdownRenderer'
@@ -607,6 +609,22 @@ export default function TerminalShell({
           data-testid="terminal-output"
           ref={outputRef}
         >
+          {bootMode === 'route' ? (
+            <div className="terminal-route-toolbar" data-testid="terminal-route-toolbar">
+              <Link
+                aria-label="Go to home page"
+                className="terminal-home-button"
+                data-testid="terminal-home-button"
+                href="/"
+              >
+                <House
+                  aria-hidden="true"
+                  className="terminal-home-button__icon"
+                  strokeWidth={1.8}
+                />
+              </Link>
+            </div>
+          ) : null}
           {entries.map((entry) => (
             <article
               className={`terminal-entry terminal-entry--${entry.type}`}

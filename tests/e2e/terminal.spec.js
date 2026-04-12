@@ -592,7 +592,23 @@ test('subroutes auto-run derived commands and ignore persisted root history', as
 
   await expectPrompt(page, 'about')
   await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
+  await expect(page.getByTestId('terminal-home-button')).toBeVisible()
   await expect(page.getByText('Ares 3 on Substack', { exact: false })).toHaveCount(0)
+})
+
+test('route-only home button returns the user to the root page', async ({ page }) => {
+  await page.goto('/about')
+
+  const homeButton = page.getByTestId('terminal-home-button')
+
+  await expect(homeButton).toBeVisible()
+  await homeButton.click()
+
+  await expect(page).toHaveURL(/\/$/)
+  await expect(
+    page.getByText('Welcome to my corner on the internet', { exact: false })
+  ).toBeVisible()
+  await expect(page.getByTestId('terminal-home-button')).toHaveCount(0)
 })
 
 test('nested subroutes auto-run the full token path and reset on reload', async ({
