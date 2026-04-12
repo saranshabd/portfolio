@@ -13,4 +13,4 @@ Reach out to me on LinkedIn if you are more comfortable there. Heads up though, 
 - [Email: hi@saranshabd.com](mailto:hi@saranshabd.com)
 - [X: @saranshabd](https://x.com/saranshabd)
 - [GitHub: @saranshabd](https://github.com/saranshabd)
-- [LinkedIn: @saranshabd](https://www.linkedin.com/in/shabdsaran/)
+- [LinkedIn: @saranshabd](https://www.linkedin.com/in/saranshabd/)
