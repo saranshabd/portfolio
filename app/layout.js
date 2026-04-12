@@ -1,6 +1,8 @@
 import localFont from 'next/font/local'
 import { Analytics } from '@vercel/analytics/react'
 
+import { getMetadataBase } from '../lib/seo'
+
 import './globals.css'
 
 const jetBrainsMono = localFont({
@@ -25,10 +27,29 @@ const jetBrainsMono = localFont({
 })
 
 export const metadata = {
-  title: 'Shabd Saran | Terminal Portfolio',
-  description: "Shabd Saran's corner on the internet, rebuilt as a terminal.",
+  metadataBase: getMetadataBase(),
+  title: {
+    default: 'Shabd',
+    template: '%s',
+  },
+  description: "My corner on the internet",
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
+  manifest: '/manifest.webmanifest',
+  applicationName: 'Shabd',
+  openGraph: {
+    siteName: 'Shabd',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
   },
 }
 
