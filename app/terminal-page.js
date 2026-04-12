@@ -21,6 +21,7 @@ export async function renderTerminalPage({ segments = [] } = {}) {
       {...terminalContent}
       bootMode={bootMode}
       initialCommand={bootCommand}
+      isContentRoute={Boolean(matchedContentEntry)}
     />
   )
 }

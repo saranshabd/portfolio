@@ -496,7 +496,8 @@ test('cat renders content files and handles usage and missing slugs', async ({
 }) => {
   const expectedContentAssertions = {
     intro: 'Helpful navigation tips',
-    'big-tech-vs-startups-the-myths-and-realities': 'This is article #1.',
+    'big-tech-vs-startups-the-myths-and-realities':
+      'Should I join a startup or make myself comfortable at the Big Tech?',
   }
 
   await page.goto('/')
@@ -634,7 +635,12 @@ test('content routes auto-run cat and reset on reload', async ({ page }) => {
   await page.goto('/big-tech-vs-startups-the-myths-and-realities')
 
   await expectPrompt(page, 'cat big-tech-vs-startups-the-myths-and-realities')
-  await expect(page.getByText('This is article #1.', { exact: false })).toBeVisible()
+  await expect(
+    page.getByText(
+      'Should I join a startup or make myself comfortable at the Big Tech?',
+      { exact: false }
+    )
+  ).toBeVisible()
 
   await runCommand(page, 'about')
   await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
@@ -642,8 +648,29 @@ test('content routes auto-run cat and reset on reload', async ({ page }) => {
   await page.reload()
 
   await expectPrompt(page, 'cat big-tech-vs-startups-the-myths-and-realities')
-  await expect(page.getByText('This is article #1.', { exact: false })).toBeVisible()
+  await expect(
+    page.getByText(
+      'Should I join a startup or make myself comfortable at the Big Tech?',
+      { exact: false }
+    )
+  ).toBeVisible()
   await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toHaveCount(0)
+})
+
+test('content routes keep the initial viewport at the top for reading', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1100, height: 720 })
+  await page.goto('/big-tech-vs-startups-the-myths-and-realities')
+
+  const scrollMetrics = await page.getByTestId('terminal-output').evaluate((node) => ({
+    scrollTop: node.scrollTop,
+    scrollHeight: node.scrollHeight,
+    clientHeight: node.clientHeight,
+  }))
+
+  expect(scrollMetrics.scrollHeight).toBeGreaterThan(scrollMetrics.clientHeight)
+  expect(scrollMetrics.scrollTop).toBeLessThanOrEqual(4)
 })
 
 test('invalid routes use the normal command-not-found output instead of a framework 404', async ({

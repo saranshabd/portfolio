@@ -261,6 +261,7 @@ export default function TerminalShell({
   customRunnableCommands,
   knownParentCommands = [],
   initialCommand = '',
+  isContentRoute = false,
   welcomeMarkdown,
 }) {
   const [entries, setEntries] = useState([])
@@ -270,6 +271,7 @@ export default function TerminalShell({
   const inputRef = useRef(null)
   const outputRef = useRef(null)
   const pendingSelectionRef = useRef(null)
+  const shouldKeepInitialScrollTopRef = useRef(isContentRoute)
 
   const manualIndex = createCommandMap([...builtins, ...customManualEntries])
   const runnableIndex = createCommandMap(customRunnableCommands)
@@ -284,6 +286,10 @@ export default function TerminalShell({
   const isKnownParentCommand =
     inputDisplay.parentToken.length > 0 &&
     knownParentCommandSet.has(inputDisplay.parentToken.toLowerCase())
+
+  useEffect(() => {
+    shouldKeepInitialScrollTopRef.current = isContentRoute
+  }, [isContentRoute, initialCommand])
 
   async function persistRootEntries(nextEntries) {
     setEntries(nextEntries)
@@ -523,6 +529,15 @@ export default function TerminalShell({
       const outputElement = outputRef.current
 
       if (!outputElement) {
+        return
+      }
+
+      if (shouldKeepInitialScrollTopRef.current) {
+        outputElement.scrollTo({
+          top: 0,
+          behavior: 'auto',
+        })
+        shouldKeepInitialScrollTopRef.current = false
         return
       }
 
