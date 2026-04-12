@@ -719,6 +719,37 @@ test('typing after clicking terminal content still targets the input', async ({
   await expect(page.getByTestId('terminal-input')).toHaveValue('')
 })
 
+test('long input wraps inside the prompt without horizontal overflow', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 700, height: 720 })
+  await page.goto('/')
+
+  const input = page.getByTestId('terminal-input')
+  const display = page.getByTestId('terminal-input-display')
+  const longCommand =
+    'cat sdklfsd fjsdkfj sdklf sdklf dsklfjsd klfjsdlf sdljf sdklfjsdl f jsdklfsdl fjsd fjsdklfj sdklfj sklfj sdlfjsdlfjsd'
+
+  await input.fill(longCommand)
+  await expect(input).toHaveValue(longCommand)
+
+  const displayMetrics = await display.evaluate((node) => {
+    const styles = window.getComputedStyle(node)
+    const lineHeight = Number.parseFloat(styles.lineHeight)
+    const fontSize = Number.parseFloat(styles.fontSize)
+
+    return {
+      clientWidth: node.clientWidth,
+      scrollWidth: node.scrollWidth,
+      clientHeight: node.clientHeight,
+      lineHeight: Number.isNaN(lineHeight) ? fontSize * 1.4 : lineHeight,
+    }
+  })
+
+  expect(displayMetrics.scrollWidth).toBeLessThanOrEqual(displayMetrics.clientWidth + 1)
+  expect(displayMetrics.clientHeight).toBeGreaterThan(displayMetrics.lineHeight * 1.5)
+})
+
 test('Ctrl+W deletes the previous word and keeps the mirrored display in sync', async ({
   page,
 }) => {

@@ -175,7 +175,7 @@ img {
 
 .terminal-input-shell {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   width: 100%;
 }
@@ -192,16 +192,17 @@ img {
 }
 
 .terminal-input-display {
-  display: flex;
-  align-items: center;
+  display: block;
   min-height: 1.5em;
   color: var(--terminal-text);
-  white-space: pre;
-  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   pointer-events: none;
 }
 
 .terminal-input-text {
+  display: inline;
   min-width: 0;
 }
 
@@ -210,13 +211,14 @@ img {
 }
 
 .terminal-input-cursor {
+  display: inline-block;
   width: 0.72em;
   height: 1.25em;
   margin-left: 0.08em;
   background: var(--terminal-accent);
   box-shadow: 0 0 18px rgba(126, 231, 135, 0.28);
   animation: terminal-block-blink 1.05s steps(1, end) infinite;
-  flex: 0 0 auto;
+  vertical-align: text-bottom;
 }
 
 .terminal-input {
