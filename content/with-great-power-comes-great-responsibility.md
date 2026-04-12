@@ -6,7 +6,7 @@
 
 Are engineers today an essential part of our society? Are they as valuable as lawyers or doctors or politicians? In my opinion, the answer is "yes" to all of these questions but, in this case, the explanation is more fascinating than the answer itself.
 
-## Application of first principals
+## Application of first principles
 
 Application of first principles is one of the first lessons taught to every engineer at the beginning of their academic career. Thinking from first principles means breaking down a problem into atomic problems and applying the fundamental principles of science and logic to solve those atomic problems and work your way up to the actual problem itself. Therefore, engineers are one of the only breeds that can cut emotions off any problem and be able to see the problem for what it actually is instead of what it seems. It is also because of this constant habit of applying first principles everywhere that people have a notion of engineers being antisocial and rude.
 

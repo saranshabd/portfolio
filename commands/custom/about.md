@@ -8,4 +8,4 @@ Before Sensei, I was a SWE at smallcase, a Series-C fintech startup in India. I 
 
 I started my journey in technology with Swadesh, which was a YC-backed startup building a neo-bank for Indian expats in The US. I joined Swadesh as a founding engineer and got to work on amazing problems and understand what starting a company looks like from the inside, compared to hearing about it from the sidelines.
 
-Ultimately, I am always curious about what's going to happen next and don't hold much value to my current skillset. Vibe-coding is the new kid around the block these days so why not give it a shot? At the end of the day, one of my core believes is to build and create with whatever tools you have at your disposal.
+Ultimately, I am always curious about what's going to happen next and don't hold much value to my current skillset. Vibe-coding is the new kid around the block these days so why not give it a shot? At the end of the day, one of my core beliefs is to build and create with whatever tools you have at your disposal.

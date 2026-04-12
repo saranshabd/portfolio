@@ -1,4 +1,4 @@
 # portfolio
 
-Personal portfolio website
+my corner on the internet
 

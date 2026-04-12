@@ -2,7 +2,7 @@
 
 List selected essays, technical posts, and exploration notes.
 ---
-I had my writing phase a few years ago and whatever is out there was published during that time. Here you will find some technical articles, essays on my personal opinions or core believes and whatever the fuck I was thinking with Ares 3.
+I had my writing phase a few years ago and whatever is out there was published during that time. Here you will find some technical articles, essays on my personal opinions or core beliefs and whatever the fuck I was thinking with Ares 3.
 
 Should you take my writing seriously? Certainly not. I don't.
 
