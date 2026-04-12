@@ -1,4 +1,4 @@
-# writing
+# writings
 
 List selected essays, technical posts, and exploration notes.
 ---
@@ -19,7 +19,7 @@ Should you take my writing seriously? Certainly not. I don't.
 
 ## Personal Essays
 
-- Big Tech vs Startups: The myths and realities
+- [Big Tech vs Startups: The myths and realities](/big-tech-vs-startups-the-myths-and-realities)
 - With great power comes great responsibility
 
 ## Exploration Log

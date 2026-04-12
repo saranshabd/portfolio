@@ -16,6 +16,11 @@ const BUILTIN_COMMANDS_DIRECTORY = path.join(
   'commands',
   'builtins'
 )
+const CONTENT_DIRECTORY = path.join(ROOT_DIRECTORY, 'public', 'content')
+const PROMPT_PREFIX = 'internet@127.0.0.1:~$'
+const ABOUT_ASSERTION = 'I was the founding engineer at Sensei'
+const BIRTHDAY_ASSERTION =
+  '2023 was quieter than expected: more reflection, less performance'
 
 function splitMarkdownSections(markdown) {
   const normalizedMarkdown = markdown.replace(/\r\n/g, '\n')
@@ -226,6 +231,18 @@ function readCustomFixtures(directory) {
   }
 }
 
+function readContentFixtures(directory) {
+  return fs
+    .readdirSync(directory)
+    .filter((filename) => filename.endsWith('.md'))
+    .sort()
+    .map((filename) => ({
+      name: path.basename(filename, '.md'),
+      body: fs.readFileSync(path.join(directory, filename), 'utf8').trim(),
+      source: filename,
+    }))
+}
+
 async function runCommand(page, command) {
   const input = page.getByTestId('terminal-input')
   await input.fill(command)
@@ -296,6 +313,12 @@ async function readPersistedRootSession(page) {
   })
 }
 
+function expectPrompt(page, command) {
+  return expect(
+    page.locator('.terminal-prompt-line', { hasText: `${PROMPT_PREFIX}${command}` })
+  ).toBeVisible()
+}
+
 async function writeLegacySession(page, session) {
   await page.evaluate(async (nextSession) => {
     const DATABASE_NAME = 'terminal-portfolio'
@@ -343,7 +366,7 @@ test('first root visit shows the welcome markdown panel', async ({ page }) => {
     page.getByText('Welcome to my corner on the internet')
   ).toBeVisible()
   await expect(
-    page.getByText('Start with help to see what is installed', { exact: false })
+    page.getByText('Helpful navigation tips', { exact: false })
   ).toBeVisible()
 })
 
@@ -441,7 +464,7 @@ test('built-in and directory-backed manuals are reachable through man', async ({
     ).toBeVisible()
   }
 
-  for (const command of ['about', 'status', 'birthday']) {
+  for (const command of ['about', 'birthday']) {
     const manualEntry = manualEntries.find((entry) => entry.name === command)
 
     await runCommand(page, `man ${command}`)
@@ -468,44 +491,71 @@ test('bare parents, invalid subcommands, and gibberish commands show shell-style
   ).toHaveCount(3)
 })
 
-test('legacy root sessions still restore after the storage-key migration', async ({
+test('cat renders content files and handles usage and missing slugs', async ({
+  page,
+}) => {
+  const expectedContentAssertions = {
+    intro: 'Helpful navigation tips',
+    'big-tech-vs-startups-the-myths-and-realities': 'This is article #1.',
+  }
+
+  await page.goto('/')
+
+  for (const slug of Object.keys(expectedContentAssertions)) {
+    await runCommand(page, `cat ${slug}`)
+    await expect(page.getByTestId('terminal-entry').last()).toContainText(
+      expectedContentAssertions[slug]
+    )
+  }
+
+  await runCommand(page, 'cat')
+  await expect(page.getByText('Usage: cat <slug>', { exact: false })).toBeVisible()
+
+  await runCommand(page, 'cat wrong-slug')
+  await expect(
+    page.getByText('No content file found for wrong-slug.', { exact: false })
+  ).toBeVisible()
+})
+
+test('writings links local content entries to content routes', async ({ page }) => {
+  await page.goto('/')
+  await runCommand(page, 'writings')
+
+  const articleLink = page.getByRole('link', {
+    name: 'Big Tech vs Startups: The myths and realities',
+  })
+
+  await expect(articleLink).toHaveAttribute(
+    'href',
+    '/big-tech-vs-startups-the-myths-and-realities'
+  )
+
+  await articleLink.click()
+
+  await expect(page).toHaveURL(/\/big-tech-vs-startups-the-myths-and-realities$/)
+  await expectPrompt(page, 'cat big-tech-vs-startups-the-myths-and-realities')
+})
+
+test('root reload shows the welcome panel again when browser persistence is disabled', async ({
   page,
 }) => {
   await page.goto('/')
-
-  await writeLegacySession(page, {
-    initialized: true,
-    entries: [
-      {
-        id: 'legacy-output',
-        type: 'output',
-        content: 'Legacy root session survives.',
-      },
-    ],
-  })
+  await runCommand(page, 'about')
 
   await page.reload()
 
   await expect(
-    page.getByText('Legacy root session survives.', { exact: false })
+    page.getByText('Welcome to my corner on the internet', { exact: false })
   ).toBeVisible()
 })
 
-test('root history persists across reload', async ({ page }) => {
+test('root commands render in-session before reload', async ({ page }) => {
   await page.goto('/')
 
   await runCommand(page, 'about')
   await runCommand(page, 'help')
 
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toBeVisible()
-
-  await page.reload()
-
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toBeVisible()
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
   await expect(page.getByText('Available Commands')).toBeVisible()
 })
 
@@ -518,20 +568,13 @@ test('clear resets the root page back to the intro on reload', async ({
   await runCommand(page, 'clear')
   await expect(page.getByTestId('terminal-entry')).toHaveCount(0)
 
-  const persistedSession = await readPersistedRootSession(page)
-
-  expect(persistedSession).toEqual({
-    initialized: true,
-    entries: [],
-  })
-
   await page.reload()
 
   await expect(
     page.getByText('Welcome to my corner on the internet')
   ).toBeVisible()
   await expect(
-    page.getByText('Start with help to see what is installed', { exact: false })
+    page.getByText('Helpful navigation tips', { exact: false })
   ).toBeVisible()
 })
 
@@ -540,18 +583,14 @@ test('subroutes auto-run derived commands and ignore persisted root history', as
 }) => {
   await page.goto('/')
   await runCommand(page, 'about')
-  await runCommand(page, 'writing')
+  await runCommand(page, 'writings')
 
   await expect(page.getByText('Ares 3 on Substack', { exact: false })).toBeVisible()
 
   await page.goto('/about')
 
-  await expect(
-    page.getByText('shabd@portfolio:~$ about', { exact: false })
-  ).toBeVisible()
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toBeVisible()
+  await expectPrompt(page, 'about')
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
   await expect(page.getByText('Ares 3 on Substack', { exact: false })).toHaveCount(0)
 })
 
@@ -560,29 +599,17 @@ test('nested subroutes auto-run the full token path and reset on reload', async 
 }) => {
   await page.goto('/birthday/2023')
 
-  await expect(
-    page.getByText('shabd@portfolio:~$ birthday 2023', { exact: false })
-  ).toBeVisible()
-  await expect(
-    page.getByText('2023 was quieter than expected', { exact: false })
-  ).toBeVisible()
+  await expectPrompt(page, 'birthday 2023')
+  await expect(page.getByText(BIRTHDAY_ASSERTION, { exact: false })).toBeVisible()
 
   await runCommand(page, 'about')
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toBeVisible()
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
 
   await page.reload()
 
-  await expect(
-    page.getByText('shabd@portfolio:~$ birthday 2023', { exact: false })
-  ).toBeVisible()
-  await expect(
-    page.getByText('2023 was quieter than expected', { exact: false })
-  ).toBeVisible()
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toHaveCount(0)
+  await expectPrompt(page, 'birthday 2023')
+  await expect(page.getByText(BIRTHDAY_ASSERTION, { exact: false })).toBeVisible()
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toHaveCount(0)
 })
 
 test('subpage reload discards ad hoc history and restores only the route command', async ({
@@ -590,25 +617,33 @@ test('subpage reload discards ad hoc history and restores only the route command
 }) => {
   await page.goto('/about')
 
-  await expect(
-    page.getByText('shabd@portfolio:~$ about', { exact: false })
-  ).toBeVisible()
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toBeVisible()
+  await expectPrompt(page, 'about')
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
 
-  await runCommand(page, 'writing')
+  await runCommand(page, 'writings')
   await expect(page.getByText('Ares 3 on Substack', { exact: false })).toBeVisible()
 
   await page.reload()
 
-  await expect(
-    page.getByText('shabd@portfolio:~$ about', { exact: false })
-  ).toBeVisible()
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toBeVisible()
+  await expectPrompt(page, 'about')
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
   await expect(page.getByText('Ares 3 on Substack', { exact: false })).toHaveCount(0)
+})
+
+test('content routes auto-run cat and reset on reload', async ({ page }) => {
+  await page.goto('/big-tech-vs-startups-the-myths-and-realities')
+
+  await expectPrompt(page, 'cat big-tech-vs-startups-the-myths-and-realities')
+  await expect(page.getByText('This is article #1.', { exact: false })).toBeVisible()
+
+  await runCommand(page, 'about')
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
+
+  await page.reload()
+
+  await expectPrompt(page, 'cat big-tech-vs-startups-the-myths-and-realities')
+  await expect(page.getByText('This is article #1.', { exact: false })).toBeVisible()
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toHaveCount(0)
 })
 
 test('invalid routes use the normal command-not-found output instead of a framework 404', async ({
@@ -616,9 +651,7 @@ test('invalid routes use the normal command-not-found output instead of a framew
 }) => {
   await page.goto('/totally/made/up')
 
-  await expect(
-    page.getByText('shabd@portfolio:~$ totally made up', { exact: false })
-  ).toBeVisible()
+  await expectPrompt(page, 'totally made up')
   await expect(page.getByText('command not found', { exact: false })).toBeVisible()
   await expect(page.getByTestId('terminal-shell')).toBeVisible()
 })
@@ -630,7 +663,7 @@ test('new terminal output scrolls to the bottom after each command', async ({
   await page.goto('/')
 
   for (let index = 0; index < 12; index += 1) {
-    await runCommand(page, 'writing')
+    await runCommand(page, 'writings')
   }
 
   await expect(page.getByTestId('terminal-input-bar')).toBeInViewport()
@@ -655,9 +688,7 @@ test('typing after clicking terminal content still targets the input', async ({
   await page.keyboard.type('about')
   await page.keyboard.press('Enter')
 
-  await expect(
-    page.getByText('I work as a software engineer', { exact: false })
-  ).toBeVisible()
+  await expect(page.getByText(ABOUT_ASSERTION, { exact: false })).toBeVisible()
   await expect(page.getByTestId('terminal-input')).toHaveValue('')
 })
 
@@ -670,11 +701,11 @@ test('Ctrl+W deletes the previous word and keeps the mirrored display in sync', 
   const parentToken = page.getByTestId('terminal-input-parent-token')
   const suffix = page.getByTestId('terminal-input-suffix')
 
-  await input.fill('status professional')
+  await input.fill('birthday 2023')
   await input.press('Control+w')
 
-  await expectMirroredInput(page, 'status ')
-  await expect(parentToken).toHaveText('status')
+  await expectMirroredInput(page, 'birthday ')
+  await expect(parentToken).toHaveText('birthday')
   await expect(parentToken).toHaveClass(
     /terminal-input-parent-token--highlighted/
   )
@@ -689,12 +720,12 @@ test('Ctrl+U deletes to the caret and keeps the mirrored display in sync', async
   const input = page.getByTestId('terminal-input')
   const parentToken = page.getByTestId('terminal-input-parent-token')
 
-  await input.fill('status professional')
-  await setInputSelection(input, 6)
+  await input.fill('birthday 2023')
+  await setInputSelection(input, 8)
   await input.press('Control+u')
 
-  await expectMirroredInput(page, ' professional')
-  await expect(parentToken).toHaveText('professional')
+  await expectMirroredInput(page, ' 2023')
+  await expect(parentToken).toHaveText('2023')
   await expect(parentToken).not.toHaveClass(
     /terminal-input-parent-token--highlighted/
   )
@@ -705,11 +736,11 @@ test('Ctrl+W deletes the current selection', async ({ page }) => {
 
   const input = page.getByTestId('terminal-input')
 
-  await input.fill('status professional')
-  await setInputSelection(input, 7, 'status professional'.length)
+  await input.fill('birthday 2023')
+  await setInputSelection(input, 9, 'birthday 2023'.length)
   await input.press('Control+w')
 
-  await expectMirroredInput(page, 'status ')
+  await expectMirroredInput(page, 'birthday ')
 })
 
 test('Ctrl+U deletes from the start of the line to the selection end', async ({
@@ -719,8 +750,8 @@ test('Ctrl+U deletes from the start of the line to the selection end', async ({
 
   const input = page.getByTestId('terminal-input')
 
-  await input.fill('status professional')
-  await setInputSelection(input, 7, 'status professional'.length)
+  await input.fill('birthday 2023')
+  await setInputSelection(input, 9, 'birthday 2023'.length)
   await input.press('Control+u')
 
   await expectMirroredInput(page, '')
@@ -733,14 +764,12 @@ test('commands still submit normally after readline-style shortcut edits', async
 
   const input = page.getByTestId('terminal-input')
 
-  await input.fill('status professional')
+  await input.fill('birthday 2023')
   await input.press('Control+w')
-  await input.type(' professional')
+  await input.type(' 2023')
   await input.press('Enter')
 
-  await expect(
-    page.getByText('Bengaluru, India', { exact: false })
-  ).toBeVisible()
+  await expect(page.getByText(BIRTHDAY_ASSERTION, { exact: false })).toBeVisible()
   await expect(input).toHaveValue('')
 })
 
@@ -751,18 +780,11 @@ test('Ctrl+L clears the terminal like the clear command', async ({ page }) => {
 
   await runCommand(page, 'about')
   await runCommand(page, 'help')
-  await input.fill('status professional')
+  await input.fill('birthday 2023')
   await input.press('Control+l')
 
   await expect(page.getByTestId('terminal-entry')).toHaveCount(0)
   await expect(input).toHaveValue('')
-
-  const persistedSession = await readPersistedRootSession(page)
-
-  expect(persistedSession).toEqual({
-    initialized: true,
-    entries: [],
-  })
 })
 
 test('recognized parent commands highlight only the first input token', async ({
@@ -775,7 +797,7 @@ test('recognized parent commands highlight only the first input token', async ({
   const suffix = page.getByTestId('terminal-input-suffix')
   const display = page.getByTestId('terminal-input-display')
 
-  for (const command of ['help', 'man', 'about', 'status', 'birthday']) {
+  for (const command of ['help', 'man', 'cat', 'about', 'contact', 'birthday']) {
     await input.fill(command)
     await expect(parentToken).toHaveText(command)
     await expect(parentToken).toHaveClass(
@@ -795,12 +817,12 @@ test('recognized parent commands highlight only the first input token', async ({
     /terminal-input-parent-token--highlighted/
   )
 
-  await input.fill('status professional')
-  await expect(parentToken).toHaveText('status')
+  await input.fill('birthday 2023')
+  await expect(parentToken).toHaveText('birthday')
   await expect(parentToken).toHaveClass(
     /terminal-input-parent-token--highlighted/
   )
-  await expect(suffix).toHaveText(' professional')
+  await expect(suffix).toHaveText(' 2023')
 
   await input.fill('birthday 2023')
   await expect(parentToken).toHaveText('birthday')
@@ -817,6 +839,19 @@ test('recognized parent commands highlight only the first input token', async ({
   expect(suffixColor).toBe(displayColor)
 })
 
+test('content slugs do not collide with command names', async () => {
+  const builtins = readBuiltinFixtures(BUILTIN_COMMANDS_DIRECTORY)
+  const { manualEntries, runnableCommands } = readCustomFixtures(CUSTOM_COMMANDS_DIRECTORY)
+  const contentFixtures = readContentFixtures(CONTENT_DIRECTORY)
+  const commandNames = new Set(
+    [...builtins, ...manualEntries, ...runnableCommands].map((entry) => entry.name)
+  )
+
+  for (const contentEntry of contentFixtures) {
+    expect(commandNames.has(contentEntry.name)).toBe(false)
+  }
+})
+
 test.describe('responsive smoke', () => {
   test.use({
     viewport: { width: 390, height: 844 },
@@ -827,8 +862,8 @@ test.describe('responsive smoke', () => {
 
     await expect(page.getByTestId('terminal-input')).toBeVisible()
 
-    await runCommand(page, 'status professional')
+    await runCommand(page, 'birthday 2023')
 
-    await expect(page.getByText('Bengaluru, India', { exact: false })).toBeVisible()
+    await expect(page.getByText(BIRTHDAY_ASSERTION, { exact: false })).toBeVisible()
   })
 })

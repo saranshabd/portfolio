@@ -155,6 +155,16 @@ function buildManErrorMarkdown(command) {
     : 'Usage: `man <command>`'
 }
 
+function buildCatUsageMarkdown() {
+  return 'Usage: `cat <slug>`'
+}
+
+function buildCatMissingContentMarkdown(slug) {
+  return slug
+    ? `No content file found for \`${slug}\`.`
+    : buildCatUsageMarkdown()
+}
+
 function parseCommandLine(commandLine) {
   return commandLine
     .trim()
@@ -246,6 +256,7 @@ function deleteToLineStart(value, selectionStart, selectionEnd) {
 export default function TerminalShell({
   bootMode = 'root',
   builtins,
+  contentEntries,
   customManualEntries,
   customRunnableCommands,
   knownParentCommands = [],
@@ -262,6 +273,12 @@ export default function TerminalShell({
 
   const manualIndex = createCommandMap([...builtins, ...customManualEntries])
   const runnableIndex = createCommandMap(customRunnableCommands)
+  const contentIndex = createCommandMap(
+    contentEntries.map((entry) => ({
+      name: entry.name,
+      output: entry.body,
+    }))
+  )
   const knownParentCommandSet = new Set(knownParentCommands)
   const inputDisplay = getInputDisplaySegments(inputValue)
   const isKnownParentCommand =
@@ -335,6 +352,28 @@ export default function TerminalShell({
         createEntry(
           manualEntry ? 'output' : 'error',
           manualEntry ?? buildManErrorMarkdown(requestedCommand)
+        )
+      )
+
+      if (persist) {
+        await persistRootEntries(nextEntries)
+      } else {
+        commitRouteEntries(nextEntries)
+      }
+
+      return
+    }
+
+    if (normalizedCommandName === 'cat') {
+      const requestedTokens = tokens.slice(1)
+      const requestedSlug = normalizeCommandName(requestedTokens)
+      const contentEntry =
+        requestedTokens.length === 1 ? contentIndex[requestedSlug] : null
+
+      nextEntries.push(
+        createEntry(
+          contentEntry ? 'output' : 'error',
+          contentEntry?.output ?? buildCatMissingContentMarkdown(requestedSlug)
         )
       )
 
