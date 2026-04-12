@@ -20,7 +20,7 @@ Should you take my writing seriously? Certainly not. I don't.
 ## Personal Essays
 
 - [Big Tech vs Startups: The myths and realities](/big-tech-vs-startups-the-myths-and-realities)
-- With great power comes great responsibility
+- [With great power comes great responsibility](/with-great-power-comes-great-responsibility)
 
 ## Exploration Log
 
