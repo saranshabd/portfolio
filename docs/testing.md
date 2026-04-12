@@ -26,9 +26,9 @@ The tests are intentionally behavior-first. They verify:
 
 The suite reads markdown files directly from:
 
-- `public/commands/custom`
-- `public/commands/builtins`
-- `public/content`
+- `commands/custom`
+- `commands/builtins`
+- `content`
 
 That means:
 

@@ -24,22 +24,22 @@ Use `pnpm` as the package manager for installs, script execution, and lockfile u
 - `lib/terminal-content.js`: server-side loader for built-in docs, custom commands, flat content files, and welcome content.
 - `lib/command-markdown.js`: section splitting and summary extraction for command files.
 - `lib/terminal-storage.js`: IndexedDB persistence layer for the root shell session history.
-- `public/commands/builtins/*.md`: documentation for built-in commands.
-- `public/commands/custom/**/*`: executable custom command content and manual nodes.
-- `public/content/*.md`: flat content files addressable through `cat <slug>` and `/<slug>` routes. `intro.md` is also used as the welcome screen content.
+- `commands/builtins/*.md`: documentation for built-in commands.
+- `commands/custom/**/*`: executable custom command content and manual nodes.
+- `content/*.md`: flat content files addressable through `cat <slug>` and `/<slug>` routes. `intro.md` is also used as the welcome screen content.
 
 ## Routing Model
 
 - `/`: normal home boot. The shell restores the persisted root session when that feature is enabled and it has entries. Otherwise the welcome markdown is shown.
 - `/<...segments>`: route boot. The shell ignores persisted history for that load and resolves the path in this order:
-  1. flat content slug in `public/content/<slug>.md`, which boots as `cat <slug>`
+  1. flat content slug in `content/<slug>.md`, which boots as `cat <slug>`
   2. command/subcommand path such as `about` or `birthday 2023`
 - Invalid non-root routes intentionally use the same terminal shell. They auto-submit the derived command and render the standard shell-style command-not-found output instead of a framework 404 page.
 
 ## Editing Guidance
 
-- Add or update markdown-backed commands by editing `public/commands/custom/<name>.md` or nested paths such as `public/commands/custom/<name>/index.md` and `public/commands/custom/<name>/<arg>.md`.
-- Add or update built-in command docs by editing `public/commands/builtins/<name>.md`.
-- Add or update flat content pages by editing `public/content/<slug>.md`.
+- Add or update markdown-backed commands by editing `commands/custom/<name>.md` or nested paths such as `commands/custom/<name>/index.md` and `commands/custom/<name>/<arg>.md`.
+- Add or update built-in command docs by editing `commands/builtins/<name>.md`.
+- Add or update flat content pages by editing `content/<slug>.md`.
 - If command parsing rules change, update both `lib/command-markdown.js` and the Playwright fixtures logic in `tests/e2e/terminal.spec.js`.
 - If routing, content lookup, or terminal behavior changes, update Playwright coverage at the same time.

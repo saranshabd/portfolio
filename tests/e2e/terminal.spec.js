@@ -4,23 +4,12 @@ const path = require('path')
 const { expect, test } = require('@playwright/test')
 
 const ROOT_DIRECTORY = process.cwd()
-const CUSTOM_COMMANDS_DIRECTORY = path.join(
-  ROOT_DIRECTORY,
-  'public',
-  'commands',
-  'custom'
-)
-const BUILTIN_COMMANDS_DIRECTORY = path.join(
-  ROOT_DIRECTORY,
-  'public',
-  'commands',
-  'builtins'
-)
-const CONTENT_DIRECTORY = path.join(ROOT_DIRECTORY, 'public', 'content')
+const CUSTOM_COMMANDS_DIRECTORY = path.join(ROOT_DIRECTORY, 'commands', 'custom')
+const BUILTIN_COMMANDS_DIRECTORY = path.join(ROOT_DIRECTORY, 'commands', 'builtins')
+const CONTENT_DIRECTORY = path.join(ROOT_DIRECTORY, 'content')
 const PROMPT_PREFIX = 'internet@127.0.0.1:~$'
 const ABOUT_ASSERTION = 'I was the founding engineer at Sensei'
-const BIRTHDAY_ASSERTION =
-  '2023 was quieter than expected: more reflection, less performance'
+const BIRTHDAY_ASSERTION = 'Here is the e-vite to my 24th birthday party'
 
 function splitMarkdownSections(markdown) {
   const normalizedMarkdown = markdown.replace(/\r\n/g, '\n')

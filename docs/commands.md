@@ -5,9 +5,9 @@
 Commands are split into two categories:
 
 - built-in commands: behavior implemented in `components/TerminalShell.js`
-- custom commands: executable content loaded from markdown files in `public/commands/custom`
+- custom commands: executable content loaded from markdown files in `commands/custom`
 
-Both categories share a common documentation model based on markdown files. This command system is separate from flat content pages in `public/content`, which are rendered via the built-in `cat` command and routed before command lookup.
+Both categories share a common documentation model based on markdown files. This command system is separate from flat content pages in `content`, which are rendered via the built-in `cat` command and routed before command lookup.
 
 ## Command File Format
 
@@ -34,9 +34,9 @@ Parsing is handled by `splitMarkdownSections()` in `lib/command-markdown.js`.
 
 It reads:
 
-- `public/commands/builtins/*.md`
-- `public/commands/custom/**/*`
-- `public/content/*.md`
+- `commands/builtins/*.md`
+- `commands/custom/**/*`
+- `content/*.md`
 
 For built-ins it produces a flat command list. For custom commands it produces two related indexes:
 
@@ -55,8 +55,8 @@ The summary is used to generate the `help` listing.
 
 Content files are loaded as a separate flat index keyed by slug:
 
-- `public/content/intro.md` -> `intro`
-- `public/content/big-tech-vs-startups-the-myths-and-realities.md` -> `big-tech-vs-startups-the-myths-and-realities`
+- `content/intro.md` -> `intro`
+- `content/big-tech-vs-startups-the-myths-and-realities.md` -> `big-tech-vs-startups-the-myths-and-realities`
 
 These files do not use the `---` command divider contract. Their full body is rendered as normal markdown output.
 
@@ -92,8 +92,8 @@ If the command exists:
 
 Custom manual lookup supports both:
 
-- `public/commands/custom/<command>.md`
-- `public/commands/custom/<command>/index.md`
+- `commands/custom/<command>.md`
+- `commands/custom/<command>/index.md`
 
 If the command does not exist:
 
@@ -110,7 +110,7 @@ The next root reload shows the welcome panel again because empty history is trea
 
 ### `cat <slug>`
 
-`cat` renders the body of a file from `public/content`.
+`cat` renders the body of a file from `content`.
 
 If the requested slug exists:
 
@@ -127,9 +127,9 @@ Custom commands are file-discovered. There is no central registry in code.
 To add a new custom command:
 
 1. Create one of:
-   - `public/commands/custom/<command>.md`
-   - `public/commands/custom/<command>/index.md`
-   - `public/commands/custom/<command>/<arg>.md`
+   - `commands/custom/<command>.md`
+   - `commands/custom/<command>/index.md`
+   - `commands/custom/<command>/<arg>.md`
 2. Put the manual text above `---`.
 3. Put the visible command output below `---`.
 
@@ -147,7 +147,7 @@ Content pages are not commands.
 
 To add a new content page:
 
-1. Create `public/content/<slug>.md`.
+1. Create `content/<slug>.md`.
 2. Write plain markdown with no `---` split requirement.
 3. Link to it from command output or other markdown using `/<slug>`.
 
@@ -204,7 +204,7 @@ The distinction is architectural, not visual.
 ### Content pages
 
 - execution goes through the built-in `cat` command
-- output is the full markdown file body from `public/content`
+- output is the full markdown file body from `content`
 - routing can address them directly by slug without making them commands
 
 This design gives the portfolio a stable shell with a content-driven extension surface.

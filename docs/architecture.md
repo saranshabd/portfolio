@@ -22,7 +22,7 @@ The App Router is intentionally split into two entry modes that both render the 
 
 This means:
 
-- `/big-tech-vs-startups-the-myths-and-realities` resolves to the content file `public/content/big-tech-vs-startups-the-myths-and-realities.md` and boots as `cat big-tech-vs-startups-the-myths-and-realities`
+- `/big-tech-vs-startups-the-myths-and-realities` resolves to the content file `content/big-tech-vs-startups-the-myths-and-realities.md` and boots as `cat big-tech-vs-startups-the-myths-and-realities`
 - `/about` becomes `about`
 - `/birthday/2023` becomes `birthday 2023`
 - `/totally/made/up` becomes `totally made up` and still renders the shell, which then shows the normal unknown-command error if no content slug matches
@@ -34,7 +34,7 @@ The framework router is not used to distinguish valid and invalid portfolio page
 The page render path is:
 
 1. `app/page.js` or `app/[...segments]/page.js` calls `renderTerminalPage()` in `app/terminal-page.js`.
-2. `lib/terminal-content.js` reads markdown files from `public/content`, `public/commands/builtins`, and `public/commands/custom`.
+2. `lib/terminal-content.js` reads markdown files from `content`, `commands/builtins`, and `commands/custom`.
 3. Command markdown is normalized by `lib/command-markdown.js` into:
    - `manual`: content above the `---` divider
    - `output`: content below the `---` divider
@@ -83,9 +83,9 @@ That distinction matters because `clear` resets the root shell back to the intro
 
 Terminal content is file-driven, not hardcoded into JSX:
 
-- Built-in docs live in `public/commands/builtins`.
-- Executable custom commands live in `public/commands/custom`.
-- Flat content pages live in `public/content`.
-- The welcome panel is sourced from `public/content/intro.md`.
+- Built-in docs live in `commands/builtins`.
+- Executable custom commands live in `commands/custom`.
+- Flat content pages live in `content`.
+- The welcome panel is sourced from `content/intro.md`.
 
 This split matters because built-in commands are behaviorally implemented in code, custom commands are markdown-backed command outputs, and flat content pages are markdown-backed documents rendered through the built-in `cat` command.
