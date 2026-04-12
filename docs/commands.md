@@ -7,7 +7,7 @@ Commands are split into two categories:
 - built-in commands: behavior implemented in `components/TerminalShell.js`
 - custom commands: executable content loaded from markdown files in `public/commands/custom`
 
-Both categories share a common documentation model based on markdown files.
+Both categories share a common documentation model based on markdown files. This command system is separate from flat content pages in `public/content`, which are rendered via the built-in `cat` command and routed before command lookup.
 
 ## Command File Format
 
@@ -36,7 +36,7 @@ It reads:
 
 - `public/commands/builtins/*.md`
 - `public/commands/custom/**/*`
-- `public/content/intro.md`
+- `public/content/*.md`
 
 For built-ins it produces a flat command list. For custom commands it produces two related indexes:
 
@@ -53,6 +53,13 @@ Each command record still carries:
 
 The summary is used to generate the `help` listing.
 
+Content files are loaded as a separate flat index keyed by slug:
+
+- `public/content/intro.md` -> `intro`
+- `public/content/big-tech-vs-startups-the-myths-and-realities.md` -> `big-tech-vs-startups-the-myths-and-realities`
+
+These files do not use the `---` command divider contract. Their full body is rendered as normal markdown output.
+
 ## Built-In Commands
 
 Built-ins are fixed in code:
@@ -60,6 +67,7 @@ Built-ins are fixed in code:
 - `help`
 - `man`
 - `clear`
+- `cat`
 
 Their visible documentation is still markdown-backed, but their execution logic lives in `TerminalShell`.
 
@@ -100,6 +108,18 @@ If the command does not exist:
 
 The next root reload shows the welcome panel again because empty history is treated like a fresh root visit.
 
+### `cat <slug>`
+
+`cat` renders the body of a file from `public/content`.
+
+If the requested slug exists:
+
+- the content markdown is emitted as a normal terminal output entry
+
+If the slug is missing or omitted:
+
+- an error entry is emitted with usage or missing-content guidance
+
 ## Custom Commands
 
 Custom commands are file-discovered. There is no central registry in code.
@@ -121,6 +141,22 @@ At runtime:
 
 This makes command expansion mostly content work rather than React work.
 
+## Content Pages
+
+Content pages are not commands.
+
+To add a new content page:
+
+1. Create `public/content/<slug>.md`.
+2. Write plain markdown with no `---` split requirement.
+3. Link to it from command output or other markdown using `/<slug>`.
+
+At runtime:
+
+- `cat <slug>` renders that file inside the terminal
+- `/<slug>` boots the shell as `cat <slug>`
+- if no matching content slug exists, routing falls back to normal command/subcommand resolution
+
 ## Command Dispatch Flow
 
 When the user submits a command:
@@ -132,6 +168,7 @@ When the user submits a command:
    - `clear`
    - `help`
    - `man`
+   - `cat`
    - custom runnable command lookup
    - unknown command fallback
 5. The resulting `output` or `error` entry is appended.
@@ -163,5 +200,11 @@ The distinction is architectural, not visual.
 - execution is markdown-driven
 - output is static file content
 - adding a command usually does not require code changes
+
+### Content pages
+
+- execution goes through the built-in `cat` command
+- output is the full markdown file body from `public/content`
+- routing can address them directly by slug without making them commands
 
 This design gives the portfolio a stable shell with a content-driven extension surface.
