@@ -10,6 +10,7 @@ Should you take my writing seriously? Certainly not. I don't.
 
 ## Technical Articles
 
+- [From Diffusion Intuition to SnapFlow: A Practical Guide to Flow-Matching Robot Actions](/snapflow-flow-matching-robot-actions)
 - [Contextualising identifiers in a system](https://dev.to/saranshabd/contextualising-identifiers-in-a-system-4mm6)
 - [Python w/ strict typechecker](https://dev.to/saranshabd/python-w-strict-typechecker-3l7g)
 - [Go migrate from-express](https://dev.to/saranshabd/go-migrate-from-express-2amm)
