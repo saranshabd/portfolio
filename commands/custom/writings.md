@@ -10,6 +10,7 @@ Should you take my writing seriously? Certainly not. I don't.
 
 ## Technical Articles
 
+- [Building Bazaar](/building-bazaar)
 - [Image Diff Viewer](/image-diff-viewer)
 - [Simple Merkle Tree Implementation](/simple-merkle-implementation)
 - [From Diffusion Intuition to SnapFlow: A Practical Guide to Flow-Matching Robot Actions](/snapflow-flow-matching-robot-actions)
